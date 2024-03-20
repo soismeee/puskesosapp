@@ -41,10 +41,16 @@ route::get('/layanan', [HomeController::class, 'layanan'])->middleware('auth');
 route::get('/get_layanan', [HomeController::class, 'jsonLayanan'])->name('get_layanan')->middleware('auth');
 
 // wilayah
-route::get('/wilayah', [WilayahController::class, 'index'])->name('wilayah')->middleware('auth');
+route::get('/wilayah', [WilayahController::class, 'kecamatan'])->name('wilayah')->middleware('auth');
 route::get('/json_kec', [WilayahController::class, 'jsonKecamatan'])->name('json_kec')->middleware('auth');
 route::get('/get_kec/{id}', [WilayahController::class, 'getKecamatan'])->name('get_kec')->middleware('auth');
 route::post('/save_kec', [WilayahController::class, 'storeKecamatan'])->name('save_kec')->middleware('auth');
 route::patch('/update_kec/{id}', [WilayahController::class, 'updateKecamatan'])->name('update_kec')->middleware('auth');
+route::delete('/hapus_kec/{id}', [WilayahController::class, 'destroyKecamatan'])->name('hapus_kec')->middleware('auth');
 
 route::get('/dk/{id}', [WilayahController::class, 'DesaKelurahan'])->name('dk')->middleware('auth');
+route::get('/json_dk/{id}', [WilayahController::class, 'jsonDesaKelurahan'])->name('json_dk')->middleware('auth');
+route::get('/get_dk/{id}', [WilayahController::class, 'getDesaKelurahan'])->name('get_dk')->middleware('auth');
+route::post('/save_dk', [WilayahController::class, 'storeDesaKelurahan'])->name('save_dk')->middleware('auth');
+route::patch('/update_dk/{id}', [WilayahController::class, 'updateDesaKelurahan'])->name('update_dk')->middleware('auth');
+route::delete('/hapus_dk/{id}', [WilayahController::class, 'destroyDesaKelurahan'])->name('hapus_dk')->middleware('auth');
