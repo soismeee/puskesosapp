@@ -10,7 +10,7 @@
                         <div class="d-flex justify-content-between">
                             <label for="">Pengajuan layanan</label>
                             <div>
-                                <a href="/form-pengajuan" class="btn btn-primary">Buat Pengajuan</a>
+                                <a href="/list-pengajuan" class="btn btn-primary">Buat Pengajuan</a>
                             </div>
                         </div>
                     </div>

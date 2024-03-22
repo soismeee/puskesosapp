@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,3 +55,9 @@ route::get('/get_dk/{id}', [WilayahController::class, 'getDesaKelurahan'])->name
 route::post('/save_dk', [WilayahController::class, 'storeDesaKelurahan'])->name('save_dk')->middleware('auth');
 route::patch('/update_dk/{id}', [WilayahController::class, 'updateDesaKelurahan'])->name('update_dk')->middleware('auth');
 route::delete('/hapus_dk/{id}', [WilayahController::class, 'destroyDesaKelurahan'])->name('hapus_dk')->middleware('auth');
+
+// pengajuan
+route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan')->middleware('auth');
+route::get('/form-pengajuan/{id}', [PengajuanController::class, 'create'])->name('form-pengajuan')->middleware('auth');
+route::get('/list-pengajuan', [PengajuanController::class, 'listPengajuan'])->name('list-pengajuan')->middleware('auth');
+route::post('/save_pengajuan', [PengajuanController::class, 'store'])->name('save_pengajuan')->middleware('auth');

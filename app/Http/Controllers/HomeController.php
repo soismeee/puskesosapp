@@ -8,9 +8,17 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
-        return view('home.index', [
-            'title' => 'Home',
-        ]);
+        $role = auth()->user()->role;
+        if ($role == 1) {
+            return view('home.admin.index', [
+                'title' => 'Halaman utama admin',
+            ]);
+        } else {
+            return view('home.pengguna.index', [
+                'title' => 'Halaman utama'
+            ]);
+        }
+        
     }
 
     public function layanan(){

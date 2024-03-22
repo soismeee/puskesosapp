@@ -34,12 +34,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $syaratbpjskis = [
-            '1' => 'FC KTP/Identitas',
-            '2' => 'FC KK',
-            '3' => 'Surat SKTM',
-            '4' => 'Surat SPTJM Kades/Lurah Materai 10.000',
-            '5' => 'Foto rumah (atap, lantai, dinding)',
-            '6' => 'Surat keterangan sakit dari faskes'
+            'ktp' => 'FC KTP/Identitas',
+            'kk' => 'FC KK',
+            'sktm' => 'Surat SKTM',
+            'surat_sptjm_materai' => 'Surat SPTJM Kades/Lurah Materai 10.000',
+            'foto_rumah' => 'Foto rumah (atap, lantai, dinding)',
+            'surat_keterangan_sakit' => 'Surat keterangan sakit dari faskes'
         ];
 
         JenisLayanan::create([
@@ -50,13 +50,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $syaratbop = [
-            '1' => 'FC KK',
-            '2' => 'FC KTP',
-            '3' => 'Surat permohonan bantuan operasional perawatan dari desa/kelurahan ditujukan kepada bupati batang Cq. Kepala dinas sosial kab. Batang',
-            '4' => 'SKTM dari desa/kelurahan',
-            '5' => 'Foto rumah',
-            '6' => 'Foto orang sakit',
-            '7' => 'Surat keterangan rawat inap dari rumah sakit (kelas III)'
+            'ktp' => 'FC KK',
+            'kk' => 'FC KTP',
+            'surat_permohonan' => 'Surat permohonan bantuan operasional perawatan dari desa/kelurahan ditujukan kepada bupati batang Cq. Kepala dinas sosial kab. Batang',
+            'sktm' => 'SKTM dari desa/kelurahan',
+            'foto_rumah' => 'Foto rumah',
+            'foto_pasien' => 'Foto orang sakit',
+            'surat_keterangan_rawat_inap' => 'Surat keterangan rawat inap dari rumah sakit (kelas III)'
         ];
 
         JenisLayanan::create([
@@ -67,10 +67,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $syaratkip = [
-            '1' => 'FC Kartu siswa',
-            '2' => 'FC Akta kelahiran',
-            '3' => 'FC KK',
-            '4' => 'Ijazah terakhir', 
+            'kartu_siswa' => 'FC Kartu siswa',
+            'akta_kelahiran' => 'FC Akta kelahiran',
+            'kk' => 'FC KK',
+            'ijazah' => 'Ijazah terakhir', 
         ];
 
         JenisLayanan::create([
@@ -81,9 +81,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $syaratyatimpiatu = [
-            '1' => 'FC KTP / KIA',
-            '2' => 'FC KK',
-            '3' => 'Foto Rumah',
+            'ktp' => 'FC KTP / KIA',
+            'kk' => 'FC KK',
+            'foto_rumah' => 'Foto Rumah',
         ];
 
         JenisLayanan::create([

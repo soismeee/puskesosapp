@@ -62,7 +62,7 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link arrow-none" href="/daftar-pengajuan" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link arrow-none" href="/pengajuan" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
                             <span data-key="t-pengajuan">Daftar Pengajuan</span>
                         </a>
                     </li>
