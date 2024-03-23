@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index(){
         $role = auth()->user()->role;
         if ($role == 1) {
-            return view('home.admin.index', [
+            return view('home.dinas.index', [
                 'title' => 'Halaman utama admin',
             ]);
         } else {

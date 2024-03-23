@@ -11,9 +11,12 @@
                 <div class="card-body">
                     <h4>Layanan : <span class="text-primary">{{ $layanan->nama_layanan }}</span></h4>
                     <p>Lengkapi data dibawah ini</p>
+                    <hr />
+                    <h5><strong>1. Data Personal</strong></h5>
                     <form id="form_pengajuan" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" class="form-control" name="jl_id" id="jl_id" value="{{ $layanan->id }}">
+                        <input type="hidden" class="form-control" name="slug" id="slug" value="{{ $layanan->slug }}">
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama Lengkap</label>
                             <input type="text" class="form-control" placeholder="Masukan nama lengkap" name="nama" id="nama">
@@ -51,6 +54,7 @@
                                 <div class="mb-3">
                                     <label for="tanggal_lahir" class="form-label">Jenis kelamin</label>
                                     <select name="jenis_kelamin" id="jenis_kelamin" class="form-select">
+                                        <option selected disabled>Pilih jenis kelamin</option>
                                         <option value="L">Laki-laki</option>
                                         <option value="P">Perempuan</option>
                                     </select>
@@ -83,11 +87,13 @@
                             <textarea class="form-control" name="alamat" id="alamat" cols="5" rows="2"></textarea>    
                         </div>
                         <hr />
-                        <div class="row">
+
+                        <h5><strong>2. Data Pelapor</strong></h5>
+                        <div class="row mb-3">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
                                     <label for="nama_pelapor" class="form-label">Nama Pelapor</label>
-                                    <input type="text" class="form-control" placeholder="Masukan nama pelapor" name="nama_pelapor" id="nama_pelapor">
+                                    <input type="text" class="form-control" placeholder="Masukan nama pelapor" name="nama_pelapor" id="nama_pelapor" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
@@ -111,18 +117,22 @@
                                 </div>
                             </div>
                         </div>
+                        <hr />       
+
+                        <h5><strong>3. Berkas Persyaratan</strong></h5>
+                        <p><strong>Catatan : </strong>pastikan semua persyaratan sudah dipersiapkan, data yang akan diupload berupa gambar</p>
                         <div class="row">
                             @foreach (json_decode($layanan->syarat) as $sy=>$index)
                                 <div class="col-lg-4 mb-3">
                                     <label>{{ $sy }}</label>
                                     <input type="hidden" class="form-control" name="syarat_pengajuan[]" id="syarat_pengajuan" value="{{ $sy }}">
-                                    <input type="file" class="form-control" name="berkas[]" id="berkas">
+                                    <input type="file" class="form-control" name="berkas[]" id="berkas" accept="image/*" required>
                                 </div>
                             @endforeach
                         </div>
 
                         <div>
-                            <button type="submit" class="btn btn-primary w-md">Simpan</button>
+                            <button type="submit" class="btn btn-primary w-md" id="simpan">Simpan</button>
                             <a href="/pengajuan" class="btn btn-dark w-md">Batal</a>
                         </div>
                     </form>
@@ -147,6 +157,71 @@
                 return false;
             return true;
         }
+
+        var nama = document.getElementById("nama");
+        nama.addEventListener("keyup", function(e) {
+            $('#nama').removeClass("is-invalid");
+        });
+
+        var nik = document.getElementById("nik");
+        nik.addEventListener("keyup", function(e) {
+            $('#nik').removeClass("is-invalid");
+        });
+
+        var kec_id = document.getElementById("kec_id");
+        kec_id.addEventListener("change", function(e) {
+            $('#kec_id').removeClass("is-invalid");
+        });
+
+        var dk_id = document.getElementById("dk_id");
+        dk_id.addEventListener("change", function(e) {
+            $('#dk_id').removeClass("is-invalid");
+        });
+
+        var no_kk = document.getElementById("no_kk");
+        no_kk.addEventListener("keyup", function(e) {
+            $('#no_kk').removeClass("is-invalid");
+        });
+
+        var tempat_lahir = document.getElementById("tempat_lahir");
+        tempat_lahir.addEventListener("keyup", function(e) {
+            $('#tempat_lahir').removeClass("is-invalid");
+        });
+
+        var tanggal_lahir = document.getElementById("tanggal_lahir");
+        tanggal_lahir.addEventListener("change", function(e) {
+            $('#tanggal_lahir').removeClass("is-invalid");
+        });
+
+        var no_telepon = document.getElementById("no_telepon");
+        no_telepon.addEventListener("keyup", function(e) {
+            $('#no_telepon').removeClass("is-invalid");
+        });
+
+        var jenis_kelamin = document.getElementById("jenis_kelamin");
+        jenis_kelamin.addEventListener("change", function(e) {
+            $('#jenis_kelamin').removeClass("is-invalid");
+        });
+
+        var alamat = document.getElementById("alamat");
+        alamat.addEventListener("keyup", function(e) {
+            $('#alamat').removeClass("is-invalid");
+        });
+
+        var nama_pelapor = document.getElementById("nama_pelapor");
+        nama_pelapor.addEventListener("keyup", function(e) {
+            $('#nama_pelapor').removeClass("is-invalid");
+        });
+
+        var hubungan_pelapor = document.getElementById("hubungan_pelapor");
+        hubungan_pelapor.addEventListener("keyup", function(e) {
+            $('#hubungan_pelapor').removeClass("is-invalid");
+        });
+
+        var keperluan = document.getElementById("keperluan");
+        keperluan.addEventListener("keyup", function(e) {
+            $('#keperluan').removeClass("is-invalid");
+        });
         
         $(document).on('change', '#kec_id', function(e){
             let kec_id = $(this).val()
@@ -171,6 +246,8 @@
 
         $('#form_pengajuan').on('submit', function(event){
             event.preventDefault();
+            $('#simpan').prop('disabled', true);
+            $('#simpan').html('Loading ...');
             $.ajax({
                 url: "{{ url('save_pengajuan') }}",
                 method: "POST",
@@ -180,10 +257,16 @@
                 cache: false,
                 processData: false,
                 success: function(response){
-                console.log(response);    
+                    sweetAlert("Berhasil!", response.message, "success");
+                    window.location.href = '/pengajuan';    
                 },
                 error: function(err){
-                    Swal.fire({ icon: 'warning', title: err.responseJSON.message, });
+                    $('#simpan').prop('disabled', false);
+                    $('#simpan').html('Simpan');
+                    let error = err.responseJSON;
+                    $.each(error.errors, function(key, value){
+                        $('#'+key).addClass('is-invalid');
+                    });
                 }
             })
         });

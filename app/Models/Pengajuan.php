@@ -10,7 +10,22 @@ class Pengajuan extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    
+
     protected $primaryKey = 'id';
     public $incrementing = false;
+
+    public function jenis_layanan()
+    {
+        return $this->belongsTo(JenisLayanan::class, 'jl_id');
+    }
+
+    public function penduduk()
+    {
+        return $this->belongsTo(Penduduk::class, 'penduduk_nik');
+    }
+
+    public function berkas_pengajuan()
+    {
+        return $this->hasMany(BerkasPengajuan::class);
+    }
 }

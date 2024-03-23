@@ -25,6 +25,53 @@ class PengajuanController extends Controller
             ]);
         }
     }
+    
+    public function riwayat()
+    {
+        return view('pengajuan.riwayat.index', [
+            'title' => 'Daftar Riwayat Pengajuan'
+        ]);
+    }
+
+    public function json()
+    {
+        $role = auth()->user()->role;
+        if ($role == 1) {
+            $status = request('status');
+            $pengajuan = Pengajuan::with(['jenis_layanan', 'penduduk']);
+            if ($status !== "All") {
+                $pengajuan->where('status', $status);
+            }
+        } else {
+            $pengajuan = Pengajuan::with(['jenis_layanan', 'penduduk'])->whereNotIn('status', ['Selesai'])->where('user_id', auth()->user()->id);
+        }
+
+        if ($pengajuan->count() > 0) {
+            return response()->json(['data' => $pengajuan->get()]);
+        } else {
+            return response()->json(['message' => 'Tidak ada data disini'], 404);
+        }
+    }
+    
+    public function jsonRiwayat()
+    {
+        $role = auth()->user()->role;
+        if ($role == 1) {
+            $status = request('status');
+            $pengajuan = Pengajuan::with(['jenis_layanan', 'penduduk'])->where('status', 'Selesai');
+            if ($status !== "All") {
+                $pengajuan->where('status', $status);
+            }
+        } else {
+            $pengajuan = Pengajuan::with(['jenis_layanan', 'penduduk'])->where('status', 'Selesai')->where('user_id', auth()->user()->id);
+        }
+
+        if ($pengajuan->count() > 0) {
+            return response()->json(['data' => $pengajuan->get()]);
+        } else {
+            return response()->json(['message' => 'Tidak ada data disini'], 404);
+        }
+    }
 
     public function listPengajuan()
     {
@@ -43,25 +90,52 @@ class PengajuanController extends Controller
         ]);
     }
 
+    public function kodePengajuan($slug)
+    {
+        $jmldatahariini = Pengajuan::selectRaw('LPAD(CONVERT(COUNT("id") + 1, char(8)) , 3,"0") as kodes')->where('tanggal', date('Y-m-d'))->first();
+        return $slug . date("ymd") . $jmldatahariini['kodes'];
+    }
+
     public function validasi($request)
     {
-        $request->validate([
-            'nik' => 'required',
-            'kec_id' => 'required',
-            'dk_id' => 'required',
-            'no_kk' => 'required',
-            'nama' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'no_telepon' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
+        $request->validate(
+            [
+                'jl_id' => 'required',
+                'slug' => 'required',
 
-            'jl_id' => 'required',
-            'nama_pelapor' => 'required',
-            'hubungan_pelapor' => 'required',
-            'keperluan' => 'required',
-        ]);
+                'nik' => 'required',
+                'kec_id' => 'required',
+                'dk_id' => 'required',
+                'no_kk' => 'required',
+                'nama' => 'required',
+                'tempat_lahir' => 'required',
+                'tanggal_lahir' => 'required',
+                'no_telepon' => 'required',
+                'jenis_kelamin' => 'required',
+                'alamat' => 'required',
+
+                'nama_pelapor' => 'required',
+                'hubungan_pelapor' => 'required',
+                'keperluan' => 'required',
+            ],
+            [
+                'nik.required' => 'NIK tidak boleh kosong',
+                'kec_id.required' => 'Kecamatan harus dipilih',
+                'dk_id.required' => 'Desa/Kelurahan harus dipilih',
+                'no_kk.required' => 'Nomor KK tidak boleh kosong',
+                'nama.required' => 'Nama tidak boleh kosong',
+                'tempat_lahir.required' => 'Tempat lahir tidak boleh kosong',
+                'tanggal_lahir.required' => 'Tanggal lahir harus diisi',
+                'no_telepon.required' => 'Nomor telepon harus diisi',
+                'jenis_kelamin.required' => 'Jenis kelamin harus dipilih',
+                'alamat.required' => 'Alamat tidak boleh kosong',
+
+                'nama_pelapor.required' => 'Nama pelapor harus diisi',
+                'hubungan_pelapor.required' => 'Hubungan pelapor tidak boleh kosong',
+                'keperluan.required' => 'Keperluan harus diisi',
+            ],
+
+        );
     }
 
     public function store(Request $request)
@@ -82,7 +156,7 @@ class PengajuanController extends Controller
         $penduduk->save();
 
         $pengajuan = new Pengajuan();
-        $pengajuan->id = Str::uuid()->toString();
+        $pengajuan->id = $this->kodePengajuan($request->slug);
         $pengajuan->user_id = auth()->user()->id;
         $pengajuan->penduduk_nik = $penduduk->nik;
         $pengajuan->jl_id = $request->jl_id;
@@ -93,18 +167,54 @@ class PengajuanController extends Controller
         $pengajuan->tanggal = date("Y-m-d");
         $pengajuan->save();
 
-        foreach ($request->file('berkas') as $key => $value) {
-            // $request->file('berkas')->move('berkas_upload/', $request->file('berkas')->getClientOriginalName());
-            // $nama_berkas = $request->file()->store('public/berkas_upload');
+        foreach ($request->file('berkas') as $key => $file) {
+            $file_name = $file->getClientOriginalName();
+            $file->storeAs('public/berkas_upload', $file_name);
 
             $berkas = new BerkasPengajuan();
             $berkas->id = intval((microtime(true) * 10000));
-            $berkas->berkas = "tesss"; // belum selesai
+            $berkas->berkas = $file_name;
             $berkas->pengajuan_id = $pengajuan->id;
             $berkas->syarat_pengajuan = $request->syarat_pengajuan[$key];
             $berkas->save();
         }
 
-        return response()->json(['message' => 'Data berhasil disimpan']);
+        return response()->json(['message' => 'Data berhasil disimpan, silahkan kembali ke menu pengajuan']);
+    }
+
+    public function show($id)
+    {
+        $pengajuan = Pengajuan::with(['jenis_layanan', 'penduduk', 'berkas_pengajuan'])->find($id);
+
+        $jenis_layanan = JenisLayanan::find($pengajuan->jl_id);
+        foreach (json_decode($jenis_layanan->syarat) as $key => $value) {
+            $berkas = BerkasPengajuan::where('syarat_pengajuan', $key)->where('pengajuan_id', $pengajuan->id)->first();
+            $data[] = [
+                'layanan' => $value,
+                'berkas' => $berkas == null ? "Belum di upload" : $berkas->berkas
+            ];
+        }
+
+        // return $data;
+        return view('pengajuan.dinas.show', [
+            'title' => 'Data pengajuan',
+            'pengajuan' => $pengajuan,
+            'berkas' => $data
+        ]);
+    }
+
+    public function statusUpdate(Request $request, $id)
+    {
+        $pengajuan = Pengajuan::find($id);
+        $pengajuan->status = $request->status;
+        $berkas_dinas = $request->file('berkas_dinas');
+        if ($berkas_dinas !== null) {
+            $file_name = $berkas_dinas->getClientOriginalName();
+            $berkas_dinas->storeAs('public/dokumen_dinas', $file_name);
+            $pengajuan->berkas_dinas = $berkas_dinas->getClientOriginalName();
+
+        }
+        $pengajuan->update();
+        return response()->json(['message' => 'Status pengajuan berhasil diubah']);
     }
 }

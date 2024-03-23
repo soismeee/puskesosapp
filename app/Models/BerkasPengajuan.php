@@ -13,4 +13,8 @@ class BerkasPengajuan extends Model
     
     protected $primaryKey = 'id';
     public $incrementing = false;
+
+    public function pengajuan(){
+        return $this->belongsTo(Pengajuan::class, 'pengajuan_id');
+    }
 }

@@ -13,4 +13,8 @@ class DesaKelurahan extends Model
     
     protected $primaryKey = 'id';
     public $incrementing = false;
+
+    public function kecamatan(){
+        return $this->belongsTo(Kecamatan::class, 'kec_id');
+    }
 }

@@ -58,6 +58,11 @@ route::delete('/hapus_dk/{id}', [WilayahController::class, 'destroyDesaKelurahan
 
 // pengajuan
 route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan')->middleware('auth');
+route::get('/riwayat', [PengajuanController::class, 'riwayat'])->name('riwayat')->middleware('auth');
 route::get('/form-pengajuan/{id}', [PengajuanController::class, 'create'])->name('form-pengajuan')->middleware('auth');
 route::get('/list-pengajuan', [PengajuanController::class, 'listPengajuan'])->name('list-pengajuan')->middleware('auth');
+route::get('/json_pengajuan', [PengajuanController::class, 'json'])->name('json_pengajuan')->middleware('auth');
+route::get('/json_riwayatpengajuan', [PengajuanController::class, 'jsonRiwayat'])->name('json_riwayatpengajuan')->middleware('auth');
+route::get('/get-pengajuan/{id}', [PengajuanController::class, 'show'])->name('get-pengajuan')->middleware('auth');
 route::post('/save_pengajuan', [PengajuanController::class, 'store'])->name('save_pengajuan')->middleware('auth');
+route::post('/save_status/{id}', [PengajuanController::class, 'statusUpdate'])->name('save_status')->middleware('auth');

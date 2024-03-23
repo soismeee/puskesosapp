@@ -9,8 +9,23 @@ class Penduduk extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
-    
-    protected $primaryKey = 'id';
+    protected $guarded = ['nik'];
+
+    protected $primaryKey = 'nik';
     public $incrementing = false;
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'kec_id');
+    }
+
+    public function desa_kelurahan()
+    {
+        return $this->belongsTo(DesaKelurahan::class, 'dk_id');
+    }
+
+    public function pengajuan()
+    {
+        return $this->belongsTo(Pengajuan::class, 'nik');
+    }
 }

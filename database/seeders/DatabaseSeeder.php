@@ -45,6 +45,7 @@ class DatabaseSeeder extends Seeder
         JenisLayanan::create([
             'id' => intval((microtime(true) * 25000)),
             'nama_layanan' => 'BPJS/KIS',
+            'slug' => 'BPJSKIS',
             'syarat' => json_encode($syaratbpjskis),
             'status' => 'show'
         ]);
@@ -62,6 +63,7 @@ class DatabaseSeeder extends Seeder
         JenisLayanan::create([
             'id' => intval((microtime(true) * 25000)),
             'nama_layanan' => 'Bantuan Operasional Perawatan',
+            'slug' => 'BOP',
             'syarat' => json_encode($syaratbop),
             'status' => 'show'
         ]);
@@ -76,6 +78,7 @@ class DatabaseSeeder extends Seeder
         JenisLayanan::create([
             'id' => intval((microtime(true) * 25000)),
             'nama_layanan' => 'KIP',
+            'slug' => 'KIP',
             'syarat' => json_encode($syaratkip),
             'status' => 'show'
         ]);
@@ -89,6 +92,7 @@ class DatabaseSeeder extends Seeder
         JenisLayanan::create([
             'id' => intval((microtime(true) * 25000)),
             'nama_layanan' => 'Yatim Piatu',
+            'slug' => 'YP',
             'syarat' => json_encode($syaratyatimpiatu),
             'status' => 'show'
         ]);

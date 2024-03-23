@@ -77,7 +77,7 @@
                     </li>
                     
                     <li class="nav-item dropdown">
-                        <a class="nav-link arrow-none" href="/pengajuan" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link arrow-none" href="/riwayat" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
                             <span data-key="t-riwayat">Riwayat Pengajuan</span>
                         </a>
                     </li>

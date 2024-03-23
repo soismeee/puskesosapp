@@ -7,17 +7,8 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="d-flex justify-content-between">
-                            <label for="">Pengajuan layanan</label>
-                            <div>
-                                <select class="form-select status" name="status">
-                                    <option value="All">Semua status &nbsp;</option>
-                                    <option value="Pengajuan">Pengajuan</option>
-                                    <option value="Proses">Proses</option>
-                                    <option value="Selesai">Selesai</option>
-                                </select>
-                            </div>
-                        </div>
+                        <h5>Pengajuan layanan</h5>
+                        <p><strong>Informasi : </strong>Pengajuan yang telah selesai di proses ada di menu ini, anda dapat mengunduh dokumen yang dibutuhkan.</p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" id="data_pengajuan">
@@ -30,7 +21,7 @@
                                         <th>Layanan</th>
                                         <th>Tanggal Pengajuan</th>
                                         <th>Status</th>
-                                        <th>#</th>
+                                        <th>Berkas</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,13 +44,14 @@
     <script src="/assets/js/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function(e){
+            loading();
             loaddata();
         });
 
         function loading(){
             $("#data_pengajuan table tbody").html(`
                 <tr>
-                    <td colspan="7" class="text-center" id="loading">
+                    <td colspan="6" class="text-center" id="loading">
                         <div class="spinner-border text-secondary m-1" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
@@ -69,12 +61,9 @@
         }
 
         function loaddata() {
-            $('#data_pengajuan table tbody').html("");
-            loading();
             $.ajax({
-                url: "{{ url('json_pengajuan') }}",
+                url: "{{ url('json_riwayatpengajuan') }}",
                 type: "GET",
-                data: { 'status' : $('.status').val() },
                 dataType: "JSON",
                 success: function(response) {
                     $('#loading').hide();
@@ -93,12 +82,7 @@
                             <td>`+items.jenis_layanan.nama_layanan+`</td>
                             <td>`+items.tanggal+`</td>
                             <td><span class="badge bg-`+status+`">`+items.status+`</span></td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="/get-pengajuan/`+items.id+`" class="btn btn-sm btn-primary lihat">Lihat</a>
-                                    <a href="#" class="btn btn-sm btn-danger hapus">Lihat</a>
-                                </div>    
-                            </td>
+                            <td><a href="{{ asset('storage/dokumen_dinas') }}/`+items.berkas_dinas+`" class="btn btn-sm btn-primary" download> Unduh </a></td>
                         </tr>
                         `;
                         no++;
@@ -111,11 +95,5 @@
                 }
             });
         }
-
-        $(document).on('change', '.status', function(e){
-            e.preventDefault();
-            loading();
-            loaddata();
-        })
     </script>
 @endpush
