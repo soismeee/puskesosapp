@@ -41,6 +41,7 @@
 @endsection
 
 @push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="/assets/js/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function(e){
@@ -72,6 +73,7 @@
                     let data = response.data;
                     let status = "dark";
                     data.forEach(items => {
+                        let tanggal = moment(items.tanggal).format("DD-MM-YYYY");
                         if (items.status == "Proses") { status = "primary"; }
                         if (items.status == "Selesai") { status = "success"; }
                         html += `
@@ -80,7 +82,7 @@
                             <td>`+items.id+`</td>
                             <td>`+items.penduduk.nama+`</td>
                             <td>`+items.jenis_layanan.nama_layanan+`</td>
-                            <td>`+items.tanggal+`</td>
+                            <td>`+tanggal+`</td>
                             <td><span class="badge bg-`+status+`">`+items.status+`</span></td>
                             <td><a href="{{ asset('storage/dokumen_dinas') }}/`+items.berkas_dinas+`" class="btn btn-sm btn-primary" download> Unduh </a></td>
                         </tr>

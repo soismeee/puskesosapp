@@ -14,13 +14,14 @@
                         </div>
                         <div class="col-lg-4">
                             <select class="form-select" name="jenis_pelayanan" id="jenis_pelayanan">
-                                <option selected>Pilih layanan</option>
-                                <option value="bpjs/kis">BPJS/KIS</option>
-                                <option value="bop">Bantuan Operasional Perawatan</option>
+                                <option selected disabled>Pilih layanan</option>
+                                @foreach ($layanan as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_layanan }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-lg-2">
-                            <button class="btn btn-success">
+                            <button class="btn btn-success" id="cari">
                                 Pilih Pelayanan
                             </button>
                         </div>
@@ -31,8 +32,12 @@
          <!-- end row -->
         <div class="row">
             <div class="card">
+                <div class="card-header">
+                    <h6>Informasi persyaratan layanan</h6>
+                </div>
                 <div class="card-body">
-                    <h3 class="text-center">Muncul informasi ketika layanan terpilih</h3>
+                    <div class="row" id="informasi">
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,3 +46,38 @@
 </div>
 <!-- End Page-content -->
 @endsection
+
+@push('js')
+
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('click', '#cari', function(e){
+            e.preventDefault();
+            let id = $('#jenis_pelayanan').val();
+            if(!id) return sweetAlert("Maaf!", "Layanan harus dipilih", "warning");
+            $.ajax({
+                url: "{{ url('get_l') }}/"+id,
+                type: "GET",
+                success: function(response) {
+                    var output = '';
+                    let no = 1;
+                    let data = JSON.parse(response.data.syarat);
+                    $.each(data, function(key, value) {
+                        output += `<div class="col-lg-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5>`+no+`. `+value+`</h5>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                                    no++;
+                    });
+                    $('#informasi').html(output);
+                },
+                error: function(err){
+                    sweetAlert("Maaf!!!", err.responseJSON.message, "error");
+                }
+            })
+        });
+    </script>
+@endpush

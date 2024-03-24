@@ -25,6 +25,8 @@ route::get('/jenis-pelayanan', [PagesController::class, 'jenisPelayanan'])->name
 route::get('/jam-pelayanan', [PagesController::class, 'jamPelayanan'])->name('jam-pelayanan');
 route::get('/teknis-pengajuan', [PagesController::class, 'teknisPengajuan'])->name('teknis-pengajuan');
 route::get('/cek-pengajuan', [PagesController::class, 'cekPengajuan'])->name('cek-pengajuan');
+route::get('/get_l/{id}', [PagesController::class, 'getLayanan'])->name('get_l');
+route::get('/get_pengajuan/{id}', [PagesController::class, 'getPengajuan'])->name('get_pengajuan');
 
 // profil
 route::get('/profil', [HomeController::class, 'profil'])->name('profil')->middleware('auth');
