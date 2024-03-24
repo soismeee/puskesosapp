@@ -26,6 +26,10 @@ route::get('/jam-pelayanan', [PagesController::class, 'jamPelayanan'])->name('ja
 route::get('/teknis-pengajuan', [PagesController::class, 'teknisPengajuan'])->name('teknis-pengajuan');
 route::get('/cek-pengajuan', [PagesController::class, 'cekPengajuan'])->name('cek-pengajuan');
 
+// profil
+route::get('/profil', [HomeController::class, 'profil'])->name('profil')->middleware('auth');
+route::post('/change_profile', [HomeController::class, 'update'])->name('change_profile')->middleware('auth');
+
 // route::get('/pengajuan', [PagesController::class, 'pengajuan'])->name('pengajuan');
 // route::get('/form-pengajuan', [PagesController::class, 'formPengajuan'])->name('form-pengajuan');
 

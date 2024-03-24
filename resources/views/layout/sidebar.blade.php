@@ -85,7 +85,7 @@
                     
                     @auth
                     <li class="nav-item dropdown">
-                        <a class="nav-link arrow-none" href="/pengajuan" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link arrow-none" href="/profil" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
                             <span data-key="t-profil">Profil</span>
                         </a>
                     </li>
