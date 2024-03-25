@@ -77,12 +77,12 @@
                     var no = 1;
                     let html = '';
                     let data = response.data;
-                    let status = "dark";
                     data.forEach(items => {
                         let tanggal = moment(items.tanggal).format("DD-MM-YYYY");
+                        let status = "dark";
                         if (items.status == "Proses") { status = "primary"; }
                         if (items.status == "Selesai") { status = "success"; }
-                        html += `
+                        html = `
                         <tr>
                             <td>`+no+`</td>
                             <td>`+items.id+`</td>
@@ -93,8 +93,8 @@
                         </tr>
                         `;
                         no++;
+                        $('#data_pengajuan table tbody').append(html);
                     });
-                    $('#data_pengajuan table tbody').html(html);
                 },
                 error: function(err){
                     $('#loading').hide();

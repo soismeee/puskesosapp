@@ -71,11 +71,8 @@
                     var no = 1;
                     let html = '';
                     let data = response.data;
-                    let status = "dark";
                     data.forEach(items => {
                         let tanggal = moment(items.tanggal).format("DD-MM-YYYY");
-                        if (items.status == "Proses") { status = "primary"; }
-                        if (items.status == "Selesai") { status = "success"; }
                         html += `
                         <tr>
                             <td>`+no+`</td>
@@ -83,7 +80,7 @@
                             <td>`+items.penduduk.nama+`</td>
                             <td>`+items.jenis_layanan.nama_layanan+`</td>
                             <td>`+tanggal+`</td>
-                            <td><span class="badge bg-`+status+`">`+items.status+`</span></td>
+                            <td><span class="badge bg-success">`+items.status+`</span></td>
                             <td><a href="{{ asset('storage/dokumen_dinas') }}/`+items.berkas_dinas+`" class="btn btn-sm btn-primary" download> Unduh </a></td>
                         </tr>
                         `;

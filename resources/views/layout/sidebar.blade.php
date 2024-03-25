@@ -50,12 +50,6 @@
                     @can('Admin')
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link arrow-none" href="/layanan" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span data-key="t-layanan">Daftar Layanan</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item dropdown">
                         <a class="nav-link arrow-none" href="/wilayah" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
                             <span data-key="t-wilayah">Wilayah</span>
                         </a>
@@ -66,10 +60,22 @@
                             <span data-key="t-pengajuan">Daftar Pengajuan</span>
                         </a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link arrow-none" href="/laporan" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span data-key="t-laporan">Laporan</span>
+                        </a>
+                    </li>
                     @endcan
 
                     {{-- ########################################################################################################################## --}}
                     @can('User')
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link arrow-none" href="/layanan" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span data-key="t-layanan">Daftar Layanan</span>
+                        </a>
+                    </li>
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link arrow-none" href="/pengajuan" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
                             <span data-key="t-pengajuan">Pengajuan</span>

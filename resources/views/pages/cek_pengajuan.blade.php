@@ -25,9 +25,10 @@
             <div class="col-xl-12 col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h6>Informasi pengajuan layanan</h6>    
+                        <h6>Informasi pengajuan layanan</h6>
                     </div>    
                     <div class="card-body">
+                        {{-- <div class="row" id="data_pengajuan" style="display: none"> --}}
                         <div class="row" id="data_pengajuan" style="display: none">
                             <div class="col-lg-12 col-md-12">
                                 <h5>Data Pengajuan</h5>
