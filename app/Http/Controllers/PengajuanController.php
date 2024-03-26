@@ -8,6 +8,7 @@ use App\Models\Kecamatan;
 use App\Models\Penduduk;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PengajuanController extends Controller
@@ -25,7 +26,7 @@ class PengajuanController extends Controller
             ]);
         }
     }
-    
+
     public function riwayat()
     {
         return view('pengajuan.riwayat.index', [
@@ -52,7 +53,7 @@ class PengajuanController extends Controller
             return response()->json(['message' => 'Tidak ada data disini'], 404);
         }
     }
-    
+
     public function jsonRiwayat()
     {
         $role = auth()->user()->role;
@@ -168,8 +169,8 @@ class PengajuanController extends Controller
         $pengajuan->save();
 
         foreach ($request->file('berkas') as $key => $file) {
-            $file_name = $file->getClientOriginalName();
-            $file->storeAs('public/berkas_upload', $file_name);
+            $file_name = $penduduk->nik . "_" . $request->syarat_pengajuan[$key] . "." . $file->getClientOriginalExtension();
+            $file->storeAs('public/berkas_upload/' . $penduduk->nik, $file_name);
 
             $berkas = new BerkasPengajuan();
             $berkas->id = intval((microtime(true) * 10000));
@@ -212,9 +213,16 @@ class PengajuanController extends Controller
             $file_name = $berkas_dinas->getClientOriginalName();
             $berkas_dinas->storeAs('public/dokumen_dinas', $file_name);
             $pengajuan->berkas_dinas = $berkas_dinas->getClientOriginalName();
-
         }
         $pengajuan->update();
         return response()->json(['message' => 'Status pengajuan berhasil diubah']);
+    }
+
+    public function destroy($id)
+    {
+        $pengajuan = Penduduk::find($id); // select penduduk
+        Storage::deleteDirectory('public/berkas_upload/'.$id);
+        $pengajuan->delete(); // hapus penduduk, otomatis menghapus pengajuan serta berkas pengajuan
+        return response()->json(['message' => 'Data pengajuan berhasil dihapus']);
     }
 }

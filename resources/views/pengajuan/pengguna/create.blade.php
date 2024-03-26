@@ -26,13 +26,13 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="nik" class="form-label">NIK</label>
-                                    <input type="text" class="form-control" placeholder="Masukan NIK" name="nik" id="nik">
+                                    <input type="text" class="form-control" placeholder="Masukan NIK" name="nik" id="nik" maxlength="16" onkeypress="return telepon('event')">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="no_kk" class="form-label">Nomor KK</label>
-                                    <input type="text" class="form-control" placeholder="Masukan Nomor KK" name="no_kk" id="no_kk">
+                                    <input type="text" class="form-control" placeholder="Masukan Nomor KK" name="no_kk" id="no_kk"  maxlength="16" onkeypress="return telepon('event')">
                                 </div>
                             </div>
                         </div>
@@ -246,8 +246,12 @@
 
         $('#form_pengajuan').on('submit', function(event){
             event.preventDefault();
-            $('#simpan').prop('disabled', true);
-            $('#simpan').html('Loading ...');
+            // $('#simpan').prop('disabled', true).html('Loading ...');
+            let nik = $('#nik').val();
+            if( nik.length < 16 ) return sweetAlert("Maaf!", "Jumlah NIK harus 16 karakter", "warning");
+            let no_kk = $('#no_kk').val();
+            if( no_kk.length < 16 ) return sweetAlert("Maaf!", "Jumlah Nomor KK harus 16 karakter", "warning");
+            // alert('lolos');
             $.ajax({
                 url: "{{ url('save_pengajuan') }}",
                 method: "POST",
@@ -268,7 +272,7 @@
                         $('#'+key).addClass('is-invalid');
                     });
                 }
-            })
+            });
         });
     </script>
 @endpush

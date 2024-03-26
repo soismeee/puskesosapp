@@ -98,7 +98,7 @@
                             <td>
                                 <div class="btn-group">
                                     <a href="/get-pengajuan/`+items.id+`" class="btn btn-sm btn-primary lihat">Lihat</a>
-                                    <a href="#" class="btn btn-sm btn-danger hapus">Lihat</a>
+                                    <a href="#" class="btn btn-sm btn-danger hapus" data-id="`+items.penduduk_nik+`">Hapus</a>
                                 </div>    
                             </td>
                         </tr>
@@ -118,6 +118,38 @@
             e.preventDefault();
             loading();
             loaddata();
-        })
+        });
+
+        $(document).on('click', '.hapus', function(e){
+            e.preventDefault();
+            let idhapus = $(this).data('id');
+            Swal.fire({
+                title:"Anda yakin?",
+                text:"Data pengajuan ini akan dihapus!",
+                icon:"warning",
+                showCancelButton:!0,
+                confirmButtonColor:"#51d28c",
+                cancelButtonColor:"#f34e4e",
+                confirmButtonText:"Yes, delete it!"
+            }).then(function(result){
+                if (result.value) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('/hapus_pengajuan') }}/"+idhapus,
+                        data: {
+                            '_token': '{{ csrf_token() }}'
+                        },
+                        dataType: 'json',
+                        success: function(response){
+                            Swal.fire("Deleted!","Data ini telah dihapus.","success")
+                            loaddata();
+                        },
+                        error: function(err){
+                            sweetAlert("Maaf!!!", err.responseJSON.message, "error");
+                        }
+                    });
+                }
+            });
+        });
     </script>
 @endpush

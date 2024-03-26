@@ -121,7 +121,11 @@
                         no++;
                         $('#data_pengajuan table tbody').append(html);
                     });
-                }
+                },
+                error: function(err){
+                    $('#loading').hide();
+                    $('#data_pengajuan table tbody').html(`<tr><td colspan="6" class="text-center">`+err.responseJSON.message+`</td></tr>`);
+                },
             });
         });
     </script>

@@ -97,7 +97,7 @@
                                                     @if ($item['berkas'] == "Belum di upload")
                                                     {{ $item['berkas'] }}        
                                                     @else
-                                                        <button class="btn btn-sm btn-primary lihat_berkas" data-berkas="{{ $item['berkas'] }}">Lihat berkas</button>
+                                                        <button class="btn btn-sm btn-primary lihat_berkas" data-nik="{{ $pengajuan->penduduk_nik }}" data-berkas="{{ $item['berkas'] }}">Lihat berkas</button>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -156,8 +156,9 @@
         $(document).on('click', '.lihat_berkas', function(e){
             e.preventDefault();
             let berkas = $(this).data('berkas');
+            let nik = $(this).data('nik');
             $('#modalBerkas').modal('show');
-            $('#show_berkas').html(`<img src="/storage/berkas_upload/`+berkas+`" alt="gambar">`)
+            $('#show_berkas').html(`<img src="/storage/berkas_upload/`+nik+`/`+berkas+`" alt="gambar">`)
         });
 
         $(document).on('click', '#simpan', function(e){
