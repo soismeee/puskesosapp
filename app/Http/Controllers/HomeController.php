@@ -14,13 +14,23 @@ class HomeController extends Controller
     public function index()
     {
         $role = auth()->user()->role;
+        $layanan = JenisLayanan::all();
+        foreach ($layanan as $item) {
+            $data[] = [
+                'nama_layanan' => $item->nama_layanan,
+                'pengajuan' => Pengajuan::where('jl_id', $item->id)->count(),
+            ];
+        }
         if ($role == 1) {
             return view('home.dinas.index', [
                 'title' => 'Halaman utama admin',
+                'layanan' => $data,
+                'pengajuan' => Pengajuan::with(['jenis_layanan', 'penduduk'])->get()
             ]);
         } else {
             return view('home.pengguna.index', [
-                'title' => 'Halaman utama'
+                'title' => 'Halaman utama',
+                'layanan' => $data,
             ]);
         }
     }

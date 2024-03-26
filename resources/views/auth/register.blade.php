@@ -62,7 +62,7 @@
                                             <label class="form-label" for="userpassword">Password</label>
                                             <div class="position-relative auth-pass-inputgroup input-custom-icon">
                                                 <span class="bx bx-lock-alt"></span>
-                                                <input type="password" class="form-control" id="password" name="password" placeholder="Masukan password">
+                                                <input type="password" class="form-control" id="password" name="password" minlength="5" placeholder="Masukan password">
                                             </div>
                                         </div>
                                         
