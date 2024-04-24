@@ -15,7 +15,7 @@
                     <h5><strong>1. Data Personal</strong></h5>
                     <form id="form_pengajuan" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" class="form-control" name="jl_id" id="jl_id" value="{{ $layanan->id }}">
+                        <input type="hidden" class="form-control" name="jl_id" id="jl_id" value="{{ $layanan->jl_id }}">
                         <input type="hidden" class="form-control" name="slug" id="slug" value="{{ $layanan->slug }}">
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama Lengkap</label>
@@ -68,7 +68,7 @@
                                     <select name="kec_id" id="kec_id" class="form-select">
                                         <option selected disabled>Pilih kecamatan</option>
                                         @foreach ($kecamatan as $kec)
-                                            <option value="{{ $kec->id }}">{{ $kec->nama_kecamatan }}</option>
+                                            <option value="{{ $kec->kec_id }}">{{ $kec->nama_kecamatan }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -234,7 +234,7 @@
                     $('#dk_id').removeAttr('disabled')
                     let keldes = response.data
                     keldes.forEach(function(items) {
-                        $('#dk_id').append(`<option value="`+items.id+`">`+items.nama_dk+`</option>`)
+                        $('#dk_id').append(`<option value="`+items.dk_id+`">`+items.nama_dk+`</option>`)
                     })
                 },
                 error: function(err){

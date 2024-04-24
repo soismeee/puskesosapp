@@ -90,14 +90,14 @@
                         html = `
                         <tr>
                             <td>`+no+`</td>
-                            <td>`+items.id+`</td>
+                            <td>`+items.pengajuan_id+`</td>
                             <td>`+items.penduduk.nama+`</td>
                             <td>`+items.jenis_layanan.nama_layanan+`</td>
                             <td>`+tanggal+`</td>
                             <td><span class="badge bg-`+status+`">`+items.status+`</span></td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="/get-pengajuan/`+items.id+`" class="btn btn-sm btn-primary lihat">Lihat</a>
+                                    <a href="/get-pengajuan/`+items.pengajuan_id+`" class="btn btn-sm btn-primary lihat">Lihat</a>
                                     <a href="#" class="btn btn-sm btn-danger hapus" data-id="`+items.penduduk_nik+`">Hapus</a>
                                 </div>    
                             </td>

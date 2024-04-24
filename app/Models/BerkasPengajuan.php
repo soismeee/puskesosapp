@@ -9,9 +9,9 @@ class BerkasPengajuan extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['berkas_id'];
     
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'berkas_id';
     public $incrementing = false;
 
     public function pengajuan(){

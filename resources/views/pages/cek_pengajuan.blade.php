@@ -129,6 +129,7 @@
                 url: "{{ url('get_pengajuan') }}/"+id,
                 type: "GET",
                 success: function(response) {
+                    console.log(response);
                     let data = response.data;
                     let status = "<span class='badge bg-dark'>Pengajuan</span>"
                     if (data.status == "Proses") {
@@ -138,7 +139,7 @@
                         status = "<span class='badge bg-success'>Selesai</span>"
                     }
 
-                    $('#id').html(data.id);
+                    $('#id').html(data.pengajuan_id);
                     $('.status').html(status);
                     var tanggal = moment(data.tanggal).format("DD-MM-YYYY");
                     $('.tanggal').text("Tanggal pengajuan : "+tanggal);

@@ -14,7 +14,7 @@ class CreatePengajuansTable extends Migration
     public function up()
     {
         Schema::create('pengajuans', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('pengajuan_id')->primary();
             $table->uuid('user_id')->index();
             $table->uuid('penduduk_nik')->index();
             $table->uuid('jl_id')->index();
@@ -28,7 +28,7 @@ class CreatePengajuansTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('jl_id')->references('id')->on('jenis_layanans')->onDelete('cascade');
+            $table->foreign('jl_id')->references('jl_id')->on('jenis_layanans')->onDelete('cascade');
             $table->foreign('penduduk_nik')->references('nik')->on('penduduks')->onDelete('cascade');
         });
     }

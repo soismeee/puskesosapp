@@ -61,8 +61,8 @@
         }
 
         function loaddata(){
-            let kec = "{{ $kecamatan->id }}"
-            let nama_dk = "{{ $kecamatan->nama_dk }}"
+            let kec = "{{ $kecamatan->kec_id }}"
+            let nama_kecamatan = "{{ $kecamatan->nama_kecamatan }}"
             $.ajax({
                 url: "{{ url('json_dk') }}/"+kec,
                 type: "GET",
@@ -75,12 +75,12 @@
                         let html = `
                             <tr>
                                 <td>${no}</td>
-                                <td>${nama_dk}</td>
+                                <td>${nama_kecamatan}</td>
                                 <td>${params.nama_dk}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="#" data-id="`+params.id+`" class="btn btn-sm btn-warning edit_dk">Edit</a>
-                                        <a href="#" data-id="`+params.id+`" class="btn btn-sm btn-danger hapus_dk">Hapus</a>
+                                        <a href="#" data-id="`+params.dk_id+`" class="btn btn-sm btn-warning edit_dk">Edit</a>
+                                        <a href="#" data-id="`+params.dk_id+`" class="btn btn-sm btn-danger hapus_dk">Hapus</a>
                                     </div>
                                 </td>
                             </tr>
@@ -94,7 +94,7 @@
 
         $(document).on('click', '#tambah_dk', function(e){
             e.preventDefault();
-            let kec_id = "{{ $kecamatan->id }}";
+            let kec_id = "{{ $kecamatan->kec_id }}";
             $('#kec_id').val(kec_id);
 
             $('#aksi').val("tambah");
@@ -120,7 +120,7 @@
                     $('#judulModalDK').text("Edit desa/kelurahan");
                     $('#modalDK').modal('show');
                     $('#aksi').val("edit");
-                    $('#id').val(response.data.id);
+                    $('#id').val(response.data.dk_id);
                     $('#nama_dk').val(response.data.nama_dk);
                 },
                 error: function(err){

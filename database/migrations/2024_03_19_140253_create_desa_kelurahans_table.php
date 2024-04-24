@@ -14,12 +14,12 @@ class CreateDesaKelurahansTable extends Migration
     public function up()
     {
         Schema::create('desa_kelurahans', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('dk_id')->primary();
             $table->uuid('kec_id')->index();
             $table->string('nama_dk');
             $table->timestamps();
 
-            $table->foreign('kec_id')->references('id')->on('kecamatans')->onDelete('cascade');
+            $table->foreign('kec_id')->references('kec_id')->on('kecamatans')->onDelete('cascade');
         });
     }
 

@@ -74,11 +74,11 @@
                             <tr>
                                 <td>${no}</td>
                                 <td>${params.nama_kecamatan}</td>
-                                <td><a href="{{ url('dk') }}/` + params.id + `" class="btn btn-sm btn-primary">Lihat Daftar</a></td>
+                                <td><a href="{{ url('dk') }}/` + params.kec_id + `" class="btn btn-sm btn-primary">Lihat Daftar</a></td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="#" data-id="` + params.id + `" class="btn btn-sm btn-warning edit_kecamatan">Edit</a>
-                                        <a href="#" data-id="` + params.id + `" class="btn btn-sm btn-danger hapus_kecamatan">Hapus</a>
+                                        <a href="#" data-id="` + params.kec_id + `" class="btn btn-sm btn-warning edit_kecamatan">Edit</a>
+                                        <a href="#" data-id="` + params.kec_id + `" class="btn btn-sm btn-danger hapus_kecamatan">Hapus</a>
                                     </div>
                                 </td>
                             </tr>
@@ -115,7 +115,7 @@
                 $('#judulModalKecamatan').text("Edit kecamatan");
                 $('#modalKecamatan').modal('show');
                 $('#aksi').val("edit");
-                $('#id').val(response.data.id);
+                $('#id').val(response.data.kec_id);
                 $('#nama_kecamatan').val(response.data.nama_kecamatan);
             },
             error: function(err) {

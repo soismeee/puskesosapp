@@ -14,7 +14,7 @@ class CreateKecamatansTable extends Migration
     public function up()
     {
         Schema::create('kecamatans', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('kec_id')->primary();
             $table->string('nama_kecamatan');
             $table->timestamps();
         });

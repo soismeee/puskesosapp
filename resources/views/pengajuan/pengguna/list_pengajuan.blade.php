@@ -15,7 +15,7 @@
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between mb-3">
                                                 <h3>{{ $item->nama_layanan }}</h3>
-                                                <a href="{{ url('form-pengajuan') }}/{{ $item->id }}" class="btn btn-primary">Pilih Layanan</a>
+                                                <a href="{{ url('form-pengajuan') }}/{{ $item->jl_id }}" class="btn btn-primary">Pilih Layanan</a>
                                             </div>
                                             <strong>Persyaratan layanan : </strong>
                                             <ul class="mt-2">

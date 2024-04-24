@@ -86,7 +86,7 @@ class PengajuanController extends Controller
     {
         return view('pengajuan.pengguna.create', [
             'title' => 'Form Pengajuan',
-            'kecamatan' => Kecamatan::select('id', 'nama_kecamatan')->get(),
+            'kecamatan' => Kecamatan::select('kec_id', 'nama_kecamatan')->get(),
             'layanan' => JenisLayanan::find($id)
         ]);
     }
@@ -157,7 +157,7 @@ class PengajuanController extends Controller
         $penduduk->save();
 
         $pengajuan = new Pengajuan();
-        $pengajuan->id = $this->kodePengajuan($request->slug);
+        $pengajuan->pengajuan_id = $this->kodePengajuan($request->slug);
         $pengajuan->user_id = auth()->user()->id;
         $pengajuan->penduduk_nik = $penduduk->nik;
         $pengajuan->jl_id = $request->jl_id;
@@ -173,9 +173,9 @@ class PengajuanController extends Controller
             $file->storeAs('public/berkas_upload/' . $penduduk->nik, $file_name);
 
             $berkas = new BerkasPengajuan();
-            $berkas->id = intval((microtime(true) * 10000));
+            $berkas->berkas_id = intval((microtime(true) * 10000));
             $berkas->berkas = $file_name;
-            $berkas->pengajuan_id = $pengajuan->id;
+            $berkas->pengajuan_id = $pengajuan->pengajuan_id;
             $berkas->syarat_pengajuan = $request->syarat_pengajuan[$key];
             $berkas->save();
         }
@@ -186,10 +186,10 @@ class PengajuanController extends Controller
     public function show($id)
     {
         $pengajuan = Pengajuan::with(['jenis_layanan', 'penduduk', 'berkas_pengajuan'])->find($id);
-
+        // return "ed";
         $jenis_layanan = JenisLayanan::find($pengajuan->jl_id);
         foreach (json_decode($jenis_layanan->syarat) as $key => $value) {
-            $berkas = BerkasPengajuan::where('syarat_pengajuan', $key)->where('pengajuan_id', $pengajuan->id)->first();
+            $berkas = BerkasPengajuan::where('syarat_pengajuan', $key)->where('pengajuan_id', $pengajuan->pengajuan_id)->first();
             $data[] = [
                 'layanan' => $value,
                 'berkas' => $berkas == null ? "Belum di upload" : $berkas->berkas

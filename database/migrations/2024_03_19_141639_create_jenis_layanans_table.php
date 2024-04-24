@@ -14,7 +14,7 @@ class CreateJenisLayanansTable extends Migration
     public function up()
     {
         Schema::create('jenis_layanans', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('jl_id')->primary();
             $table->string('nama_layanan');
             $table->string('slug');
             $table->text('syarat');

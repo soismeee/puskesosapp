@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         JenisLayanan::create([
-            'id' => intval((microtime(true) * 25000)),
+            'jl_id' => intval((microtime(true) * 25000)),
             'nama_layanan' => 'BPJS/KIS',
             'slug' => 'BPJSKIS',
             'syarat' => json_encode($syaratbpjskis),
@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         JenisLayanan::create([
-            'id' => intval((microtime(true) * 25000)),
+            'jl_id' => intval((microtime(true) * 25000)),
             'nama_layanan' => 'Bantuan Operasional Perawatan',
             'slug' => 'BOP',
             'syarat' => json_encode($syaratbop),
@@ -76,7 +76,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         JenisLayanan::create([
-            'id' => intval((microtime(true) * 25000)),
+            'jl_id' => intval((microtime(true) * 25000)),
             'nama_layanan' => 'KIP',
             'slug' => 'KIP',
             'syarat' => json_encode($syaratkip),
@@ -90,7 +90,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         JenisLayanan::create([
-            'id' => intval((microtime(true) * 25000)),
+            'jl_id' => intval((microtime(true) * 25000)),
             'nama_layanan' => 'Yatim Piatu',
             'slug' => 'YP',
             'syarat' => json_encode($syaratyatimpiatu),
@@ -99,85 +99,85 @@ class DatabaseSeeder extends Seeder
 
         // kecamatan limpung
         Kecamatan::create([
-            'id' => 25599378766161,
+            'kec_id' => 25599378766161,
             'nama_kecamatan' => "Limpung",
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766161,
             'nama_dk' => 'Amongrogo',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766161,
             'nama_dk' => 'Babadan',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766161,
             'nama_dk' => 'Dlisen',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766161,
             'nama_dk' => 'Donorejo',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766161,
             'nama_dk' => 'Kalisalak',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766161,
             'nama_dk' => 'Kepuh',
         ]);
 
 
         DesaKelurahan::create([
-            'id' => 17066252749964,
+            'dk_id' => 17066252749964,
             'kec_id' => 25599378766161,
             'nama_dk' => 'Limpung',
         ]);
 
         // kecamatan pecalungan
         Kecamatan::create([
-            'id' => 25599378766211,
+            'kec_id' => 25599378766211,
             'nama_kecamatan' => "Pecalungan",
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766211,
             'nama_dk' => 'Bandung',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766211,
             'nama_dk' => 'Gemuh',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766211,
             'nama_dk' => 'Gombong',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766211,
             'nama_dk' => 'Gumawang',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766211,
             'nama_dk' => 'Keniten',
         ]);
@@ -186,86 +186,86 @@ class DatabaseSeeder extends Seeder
 
         // kecamatan bandar
         Kecamatan::create([
-            'id' => 25599378766248,
+            'kec_id' => 25599378766248,
             'nama_kecamatan' => "Bandar",
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766248,
             'nama_dk' => 'Bandar',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766248,
             'nama_dk' => 'Batiombo',
         ]);
 
         DesaKelurahan::create([
-            'id' => intval((microtime(true) * 10000)),
+            'dk_id' => intval((microtime(true) * 10000)),
             'kec_id' => 25599378766248,
             'nama_dk' => 'Binangun',
         ]);
 
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Banyuputih",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Batang",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Bawang",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Blado",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Gringsing",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Kandeman",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Reban",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Subah",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Tersono",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Tulis",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Warungasem",
         ]);
 
         Kecamatan::create([
-            'id' => intval((microtime(true) * 15000)),
+            'kec_id' => intval((microtime(true) * 15000)),
             'nama_kecamatan' => "Wonotunggal",
         ]);
     }

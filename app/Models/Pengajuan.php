@@ -9,9 +9,9 @@ class Pengajuan extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['pengajuan_id'];
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'pengajuan_id';
     public $incrementing = false;
 
     public function jenis_layanan()
@@ -26,6 +26,6 @@ class Pengajuan extends Model
 
     public function berkas_pengajuan()
     {
-        return $this->hasMany(BerkasPengajuan::class);
+        return $this->hasMany(BerkasPengajuan::class, 'pengajuan_id');
     }
 }

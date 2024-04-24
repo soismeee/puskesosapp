@@ -44,7 +44,7 @@ class WilayahController extends Controller
     {
         $this->validasiKecamatan($request);
         $kecamatan = new Kecamatan;
-        $kecamatan->id = Str::uuid()->toString();
+        $kecamatan->kec_id = Str::uuid()->toString();
         $kecamatan->nama_kecamatan = $request->nama_kecamatan;
         $kecamatan->save();
         return response()->json(['message' => 'Data kecamatan berhasil ditambahkan']);
@@ -101,7 +101,7 @@ class WilayahController extends Controller
     {
         $this->validasiDesaKelurahan($request);
         $kecamatan = new DesaKelurahan();
-        $kecamatan->id = Str::uuid()->toString();
+        $kecamatan->dk_id = Str::uuid()->toString();
         $kecamatan->nama_dk = $request->nama_dk;
         $kecamatan->kec_id = $request->kec_id;
         $kecamatan->save();

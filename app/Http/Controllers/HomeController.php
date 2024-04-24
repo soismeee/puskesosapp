@@ -18,7 +18,7 @@ class HomeController extends Controller
         foreach ($layanan as $item) {
             $data[] = [
                 'nama_layanan' => $item->nama_layanan,
-                'pengajuan' => Pengajuan::where('jl_id', $item->id)->count(),
+                'pengajuan' => Pengajuan::where('jl_id', $item->jl_id)->count(),
             ];
         }
         if ($role == 1) {

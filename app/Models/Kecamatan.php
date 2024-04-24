@@ -9,8 +9,8 @@ class Kecamatan extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['kec_id'];
     
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'kec_id';
     public $incrementing = false;
 }

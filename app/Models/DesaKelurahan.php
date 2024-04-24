@@ -9,9 +9,9 @@ class DesaKelurahan extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['dk_id'];
     
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'dk_id';
     public $incrementing = false;
 
     public function kecamatan(){

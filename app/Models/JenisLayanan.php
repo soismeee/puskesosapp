@@ -9,8 +9,8 @@ class JenisLayanan extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['jl_id'];
     
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'jl_id';
     public $incrementing = false;
 }

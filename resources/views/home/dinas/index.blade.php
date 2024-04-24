@@ -38,7 +38,7 @@
                                 @foreach ($pengajuan as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->pengajuan_id }}</td>
                                         <td>{{ $item->penduduk->nama }}</td>
                                         <td>{{ $item->jenis_layanan->nama_layanan }}</td>
                                         <td>{{ date('d-m-Y', strtotime($item->tanggal)) }}</td>

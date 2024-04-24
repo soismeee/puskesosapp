@@ -7,7 +7,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                            <h4>Nomor Pengajuan : {{ $pengajuan->id }}</h4>
+                            <h4>Nomor Pengajuan : {{ $pengajuan->pengajuan_id }}</h4>
 
                             <p> Layanan : {{ $pengajuan->jenis_layanan->nama_layanan }} <br />
                                 Status : {{ $pengajuan->status }}
@@ -163,7 +163,7 @@
 
         $(document).on('click', '#simpan', function(e){
             e.preventDefault();
-            let id = "{{ $pengajuan->id }}";
+            let id = "{{ $pengajuan->pengajuan_id }}";
             $('#simpan').prop('disabled', true).html('Loading ...');
             $.ajax({
                 url: "{{ url('save_status') }}/"+id,

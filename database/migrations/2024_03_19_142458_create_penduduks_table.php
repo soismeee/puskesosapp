@@ -28,8 +28,8 @@ class CreatePenduduksTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('kec_id')->references('id')->on('kecamatans')->onDelete('cascade');
-            $table->foreign('dk_id')->references('id')->on('desa_kelurahans')->onDelete('cascade');
+            $table->foreign('kec_id')->references('kec_id')->on('kecamatans')->onDelete('cascade');
+            $table->foreign('dk_id')->references('dk_id')->on('desa_kelurahans')->onDelete('cascade');
 
         });
     }

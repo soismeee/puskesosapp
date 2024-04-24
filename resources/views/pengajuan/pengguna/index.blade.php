@@ -85,7 +85,7 @@
                         html = `
                         <tr>
                             <td>`+no+`</td>
-                            <td>`+items.id+`</td>
+                            <td>`+items.pengajuan_id+`</td>
                             <td>`+items.penduduk.nama+`</td>
                             <td>`+items.jenis_layanan.nama_layanan+`</td>
                             <td>`+tanggal+`</td>
