@@ -246,12 +246,12 @@
 
         $('#form_pengajuan').on('submit', function(event){
             event.preventDefault();
-            // $('#simpan').prop('disabled', true).html('Loading ...');
             let nik = $('#nik').val();
-            if( nik.length < 16 ) return sweetAlert("Maaf!", "Jumlah NIK harus 16 karakter", "warning");
+            if( nik.length < 16 )
+                return sweetAlert("Maaf!", "Jumlah NIK harus 16 karakter", "warning");
             let no_kk = $('#no_kk').val();
-            if( no_kk.length < 16 ) return sweetAlert("Maaf!", "Jumlah Nomor KK harus 16 karakter", "warning");
-            // alert('lolos');
+            if( no_kk.length < 16 )
+                return sweetAlert("Maaf!", "Jumlah Nomor KK harus 16 karakter", "warning");
             $.ajax({
                 url: "{{ url('save_pengajuan') }}",
                 method: "POST",

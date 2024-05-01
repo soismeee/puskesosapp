@@ -115,7 +115,7 @@
                                 </div><!-- end col -->
 
                                 <div class="col-sm-6 col-lg-4 col-xl-4">
-                                    <a href="/utama">
+                                    <a href="https://dinsos.batangkab.go.id/">
                                         <div class="card">
                                             <div class="card-body text-center">
                                                 <h5 class="card-title">WEBSITE PUSKESOS</h5>
