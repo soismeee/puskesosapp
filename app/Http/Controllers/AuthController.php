@@ -25,21 +25,21 @@ class AuthController extends Controller
     public function authenticate(Request $request)
     {
         // dd($request);
-        $credentials = $request->validate([
+        $credentials = $request->validate(
+        [
             'email' => 'required',
             'password' => 'required'
         ],
         [
-            'email.required' => 'email tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong',
-        ]
-        );
+        ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/home');
         }
-        return back()->with('loginError', 'Login Failed!!!');
+        return back()->with('loginError', 'Email atau password salah!!!');
     }
 
     public function store(Request $request)
@@ -49,7 +49,14 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:5|max:255'
-        ]);
+        ],
+        [
+            'name.required' => 'Nama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'password.required' => 'Password tidak boleh kosong',
+            'password.min' => 'Password minimal 5 karakter'
+        ]
+        );
 
         $vaslidatedData['id'] = intval((microtime(true) * 10000));
         $vaslidatedData['password'] = Hash::make($vaslidatedData['password']);

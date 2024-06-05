@@ -42,12 +42,24 @@
                                 <div class="p-2 mt-4">
                                     <form action="/auth" method="POST">
                                         @csrf
+                                        @if (session()->has('loginError'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <i class="mdi mdi-block-helper me-2"></i>
+                                            {{ session('loginError') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        @endif
                                         <div class="mb-3">
                                             <label class="form-label" for="email">Email</label>
                                             <div class="position-relative input-custom-icon">
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="Masukan email">
+                                                <input type="email" class="form-control" name="email" id="email" placeholder="Masukan email" value="{{ old('email') }}">
                                                  <span class="bx bx-user"></span>
                                             </div>
+                                            @error('email')
+                                            <span class="text-danger">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
                                         </div>
                 
                                         <div class="mb-3">
@@ -56,6 +68,11 @@
                                                 <span class="bx bx-lock-alt"></span>
                                                 <input type="password" class="form-control" name="password" id="password" placeholder="Masukan password">
                                             </div>
+                                            @error('password')
+                                            <span class="text-danger">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
                                         </div>
                                         <div class="mt-3">
                                             <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Log In</button>

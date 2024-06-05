@@ -45,17 +45,27 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="useremail">Nama</label>
                                             <div class="position-relative input-custom-icon">
-                                                <input type="text" class="form-control" id="name" name="name" placeholder="Masukan nama anda">  
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Masukan nama anda" value="{{ old('name') }}">  
                                                 <span class="bx bx-mail-send"></span>
                                             </div>     
+                                            @error('name')
+                                            <span class="text-danger">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
                                         </div>
         
                                         <div class="mb-3">
                                             <label class="form-label" for="email">Email</label>
                                             <div class="position-relative input-custom-icon">
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="Masukan email">
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="Masukan email" value="{{ old('email') }}">
                                                  <span class="bx bx-user"></span>
                                             </div>
+                                            @error('email')
+                                            <span class="text-danger">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
                                         </div>
                 
                                         <div class="mb-3">
@@ -64,6 +74,11 @@
                                                 <span class="bx bx-lock-alt"></span>
                                                 <input type="password" class="form-control" id="password" name="password" minlength="5" placeholder="Masukan password">
                                             </div>
+                                            @error('password')
+                                            <span class="text-danger">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
                                         </div>
                                         
                                         <div class="mt-3">
