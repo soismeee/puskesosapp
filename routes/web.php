@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,10 @@ route::get('/get_pengajuan/{id}', [PagesController::class, 'getPengajuan'])->nam
 // profil
 route::get('/profil', [HomeController::class, 'profil'])->name('profil')->middleware('auth');
 route::post('/change_profile', [HomeController::class, 'update'])->name('change_profile')->middleware('auth');
+
+// kelola user
+route::resource('/usr', UserController::class)->middleware('auth');
+route::get('/json_usr', [UserController::class, 'json'])->middleware('auth');
 
 // route::get('/pengajuan', [PagesController::class, 'pengajuan'])->name('pengajuan');
 // route::get('/form-pengajuan', [PagesController::class, 'formPengajuan'])->name('form-pengajuan');

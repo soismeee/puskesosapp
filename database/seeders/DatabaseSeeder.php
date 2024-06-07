@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@mail.com',
             'password' => bcrypt('admin'),
             'role' => '1',
+            'status' => 'aktif',
         ]);
 
         User::create([
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@mail.com',
             'password' => bcrypt('123'),
             'role' => '2',
+            'status' => 'aktif',
         ]);
 
         $syaratbpjskis = [

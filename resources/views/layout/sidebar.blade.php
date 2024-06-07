@@ -96,6 +96,14 @@
                         </a>
                     </li>
                     @endauth
+
+                    @can('Admin')
+                    <li class="nav-item dropdown">
+                        <a class="nav-link arrow-none" href="/usr" id="topnav-dashboard" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span data-key="t-user_manajemen">User Manajemen</span>
+                        </a>
+                    </li>
+                    @endcan
                 </ul>
             </div>
         </nav>
