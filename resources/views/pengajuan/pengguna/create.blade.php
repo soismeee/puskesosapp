@@ -244,16 +244,21 @@
             })
         });
 
+        // pesan error nik dan kk
+        function pesanError(pesan){
+            sweetAlert("Maaf!", pesan, "warning");
+            $('#simpan').prop('disabled', false).html('Simpan');
+        }
+
         $('#form_pengajuan').on('submit', function(event){
             event.preventDefault();
             $('#simpan').prop('disabled', true).html('Loading ...');
             let nik = $('#nik').val();
             if( nik.length < 16 )
-                return sweetAlert("Maaf!", "Jumlah NIK harus 16 karakter", "warning");
+                return pesanError('Jumlah NIK harus 16 karakter');
             let no_kk = $('#no_kk').val();
             if( no_kk.length < 16 )
-                return sweetAlert("Maaf!", "Jumlah Nomor KK harus 16 karakter", "warning");
-                alert('lolos');
+                return pesanError('Jumlah Nomor KK harus 16 karakter');
             $.ajax({
                 url: "{{ url('save_pengajuan') }}",
                 method: "POST",
@@ -267,12 +272,7 @@
                     window.location.href = '/pengajuan';    
                 },
                 error: function(err){
-                    $('#simpan').prop('disabled', false);
-                    $('#simpan').html('Simpan');
-                    let error = err.responseJSON;
-                    $.each(error.errors, function(key, value){
-                        $('#'+key).addClass('is-invalid');
-                    });
+                    pesanError('Harap mengisi semua data');
                 }
             });
         });
