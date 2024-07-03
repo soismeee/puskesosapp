@@ -86,7 +86,8 @@ class HomeController extends Controller
     public function laporan()
     {
         return view('laporan.index', [
-            'title' => 'Laporan'
+            'title' => 'Laporan',
+            'jenis_layanan' => JenisLayanan::all()
         ]);
     }
 
@@ -112,6 +113,9 @@ class HomeController extends Controller
         $pengajuan = Pengajuan::with(['jenis_layanan', 'penduduk'])->whereBetween('tanggal', [$tanggal_awal, $tanggal_akhir]);
         if ($request->status !== "All") {
             $pengajuan->where('status', $request->status);
+        }
+        if ($request->jenis_layanan !== "All") {
+            $pengajuan->where('jl_id', $request->jenis_layanan);
         }
 
         return $pengajuan->get();

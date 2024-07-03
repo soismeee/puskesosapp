@@ -107,6 +107,7 @@
         $('#simpan_user').addClass('btn-primary');
         $('#judulModalPengguna').text("Tambah Pengguna baru");
         $('#modalPengguna').modal('show');
+        $('.status').prop('checked', false);
     });
 
     $(document).on('click', '.edit_user', function(e) {
@@ -116,6 +117,7 @@
         $('#simpan_user').text("Ubah");
         $('#simpan_user').removeClass('btn-primary');
         $('#simpan_user').addClass('btn-warning');
+        $('.status').prop('checked', false);
         $.ajax({
             url: "{{ url('usr') }}/" + id,
             method: "GET",
@@ -127,6 +129,9 @@
                 $('#name').val(response.data.name);
                 $('#email').val(response.data.email);
                 $('#role').val(response.data.role);
+                if (response.data.status == 'aktif') {
+                    $('.status').prop('checked', true);
+                }
                 $('#status').val(response.data.status);
             },
             error: function(err) {

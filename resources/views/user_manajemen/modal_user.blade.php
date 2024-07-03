@@ -31,11 +31,10 @@
                             </select>
                         </div>
                         <div class="col-12">
-                            <label>Status</label>
-                            <select name="status" class="form-control status">
-                                <option value="aktif">Aktif</option>
-                                <option value="non-aktif">Non Aktif</option>
-                            </select>
+                            <input class="form-check-input status" type="checkbox" name="status">
+                            <label class="form-check-label" for="status">
+                                Status Aktif
+                            </label>
                         </div>
                     </div>
                 </div>

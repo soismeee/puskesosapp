@@ -53,6 +53,7 @@ class AuthController extends Controller
         [
             'name.required' => 'Nama tidak boleh kosong',
             'email.required' => 'Email tidak boleh kosong',
+            'email.unique' => 'Silahkan gunakan email lain',
             'password.required' => 'Password tidak boleh kosong',
             'password.min' => 'Password minimal 5 karakter'
         ]

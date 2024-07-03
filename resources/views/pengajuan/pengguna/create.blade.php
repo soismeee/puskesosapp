@@ -99,7 +99,7 @@
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
                                     <label for="hubungan_pelapor" class="form-label">Hubungan dengan pemerlu layanan</label>
-                                    <input type="text" class="form-control" placeholder="Masukan nama pelapor" name="hubungan_pelapor" id="hubungan_pelapor">
+                                    <input type="text" class="form-control" placeholder="Masukan hubungan denggan pemerlu layanan" name="hubungan_pelapor" id="hubungan_pelapor">
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                                 <div class="col-lg-4 mb-3">
                                     <label>{{ $sy }}</label>
                                     <input type="hidden" class="form-control" name="syarat_pengajuan[]" id="syarat_pengajuan" value="{{ $sy }}">
-                                    <input type="file" class="form-control" name="berkas[]" id="berkas" accept="image/*" required>
+                                    <input type="file" class="form-control" name="berkas[]" id="berkas" accept="image/*,application/pdf" required>
                                 </div>
                             @endforeach
                         </div>
@@ -160,66 +160,79 @@
 
         var nama = document.getElementById("nama");
         nama.addEventListener("keyup", function(e) {
+            $('#nama').addClass("is-valid");
             $('#nama').removeClass("is-invalid");
         });
 
         var nik = document.getElementById("nik");
         nik.addEventListener("keyup", function(e) {
+            $('#nik').addClass("is-valid");
             $('#nik').removeClass("is-invalid");
         });
 
         var kec_id = document.getElementById("kec_id");
         kec_id.addEventListener("change", function(e) {
+            $('#kec_id').addClass("is-valid");
             $('#kec_id').removeClass("is-invalid");
         });
 
         var dk_id = document.getElementById("dk_id");
         dk_id.addEventListener("change", function(e) {
+            $('#dk_id').addClass("is-valid");
             $('#dk_id').removeClass("is-invalid");
         });
 
         var no_kk = document.getElementById("no_kk");
         no_kk.addEventListener("keyup", function(e) {
+            $('#no_kk').addClass("is-valid");
             $('#no_kk').removeClass("is-invalid");
         });
 
         var tempat_lahir = document.getElementById("tempat_lahir");
         tempat_lahir.addEventListener("keyup", function(e) {
+            $('#tempat_lahir').addClass("is-valid");
             $('#tempat_lahir').removeClass("is-invalid");
         });
 
         var tanggal_lahir = document.getElementById("tanggal_lahir");
         tanggal_lahir.addEventListener("change", function(e) {
+            $('#tanggal_lahir').addClass("is-valid");
             $('#tanggal_lahir').removeClass("is-invalid");
         });
 
         var no_telepon = document.getElementById("no_telepon");
         no_telepon.addEventListener("keyup", function(e) {
+            $('#no_telepon').addClass("is-valid");
             $('#no_telepon').removeClass("is-invalid");
         });
 
         var jenis_kelamin = document.getElementById("jenis_kelamin");
         jenis_kelamin.addEventListener("change", function(e) {
+            $('#jenis_kelamin').addClass("is-valid");
             $('#jenis_kelamin').removeClass("is-invalid");
         });
 
         var alamat = document.getElementById("alamat");
         alamat.addEventListener("keyup", function(e) {
+            $('#alamat').addClass("is-valid");
             $('#alamat').removeClass("is-invalid");
         });
 
         var nama_pelapor = document.getElementById("nama_pelapor");
         nama_pelapor.addEventListener("keyup", function(e) {
+            $('#nama_pelapor').addClass("is-valid");
             $('#nama_pelapor').removeClass("is-invalid");
         });
 
         var hubungan_pelapor = document.getElementById("hubungan_pelapor");
         hubungan_pelapor.addEventListener("keyup", function(e) {
+            $('#hubungan_pelapor').addClass("is-valid");
             $('#hubungan_pelapor').removeClass("is-invalid");
         });
 
         var keperluan = document.getElementById("keperluan");
         keperluan.addEventListener("keyup", function(e) {
+            $('#keperluan').addClass("is-valid");
             $('#keperluan').removeClass("is-invalid");
         });
         
@@ -238,7 +251,8 @@
                     })
                 },
                 error: function(err){
-                    $('#dk_id').attr("disabled","disabled")
+                    $('#dk_id').attr("disabled","disabled");
+
                     Swal.fire({ icon: 'warning', title: err.responseJSON.message, });
                 }
             })
@@ -269,7 +283,7 @@
                 processData: false,
                 success: function(response){
                     sweetAlert("Berhasil!", response.message, "success");
-                    window.location.href = '/pengajuan';    
+                    // window.location.href = '/pengajuan';    
                 },
                 error: function(err){
                     pesanError('Harap mengisi semua data');

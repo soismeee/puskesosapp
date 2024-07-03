@@ -13,10 +13,18 @@
                         <form action="/cetak_pengajuan" method="GET" id="form_laporan">
                             <div class="row">
                                 @csrf
-                                <div class="col-lg-5 col-md-6 col-sm-12 mb-3">
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
                                     <input type="text" class="form-control" name="rentang_tanggal" id="rentang_tanggal">
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                                    <select class="form-select jenis_layanan" name="jenis_layanan">
+                                        <option value="All">Semua layanan</option>
+                                        @foreach ($jenis_layanan as $jl)
+                                            <option value="{{ $jl->jl_id }}">{{ $jl->nama_layanan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
                                     <select class="form-select status" name="status">
                                         <option value="All">All</option>
                                         <option value="Pengajuan">Pengajuan</option>

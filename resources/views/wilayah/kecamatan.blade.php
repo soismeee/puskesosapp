@@ -13,6 +13,11 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="search" id="search" placeholder="Cari kecamatan">
+                            </div>
+                        </div>
                         <div class="table-responsive" id="data_kecamatan">
                             <table class="table mb-0">
 
@@ -48,6 +53,15 @@
         loaddata();
     });
 
+    // fungsi delay search
+    function delay(fn, ms) {
+        let timer = 0
+        return function(...args) {
+            clearTimeout(timer)
+            timer = setTimeout(fn.bind(this, ...args), ms || 0)
+        }
+    }
+
     function loading() {
         $("#data_kecamatan table tbody").html(`
                 <tr>
@@ -61,9 +75,12 @@
     }
 
     function loaddata() {
+        let cari = $('#search').val();
         $.ajax({
             url: "{{ url('json_kec') }}",
             type: "GET",
+            data: { 'cari' : cari},
+            dataType: "json",
             success: function(response) {
                 $('#loading').hide();
                 $("#data_kecamatan table tbody").html("");
@@ -89,6 +106,13 @@
             },
         });
     }
+
+    var search = document.getElementById("search");
+    search.addEventListener("keyup", delay(function(e) {
+        let cari = $(this).val();
+        loading();
+        loaddata();
+    }, 1000));
 
     $(document).on('click', '#tambah_kecamatan', function(e) {
         e.preventDefault();

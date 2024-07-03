@@ -18,7 +18,11 @@ class WilayahController extends Controller
 
     public function jsonKecamatan()
     {
+        $cari = request('cari');
         $kecamatan = Kecamatan::all();
+        if ($cari !== null) {
+            $kecamatan = Kecamatan::where('nama_kecamatan', "like", "%".$cari."%")->get();
+        }
         return response()->json(['data' => $kecamatan]);
     }
 

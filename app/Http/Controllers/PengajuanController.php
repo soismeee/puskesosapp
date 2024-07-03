@@ -54,6 +54,48 @@ class PengajuanController extends Controller
         }
     }
 
+    public function jsonDatatable(){
+        $columns = [
+            'pengajuan_id',
+            'user_id',
+            'penduduk_nik',
+            'jl_id',
+            'nama_pelapor',
+            'status',
+            'keperluan',
+            'keterangan',
+            'tanggal',
+        ];
+        $orderBy = $columns[request()->input("order.0.column")];
+        $data = Pengajuan::with(['jenis_layanan', 'penduduk']);
+
+        if(request()->input("search.value")){
+            $data = $data->where(function($query){
+                $query->whereRaw('nama_pelapor like ? ', ['%'.request()->input("search.value").'%'])
+                ->orWhereRaw('hubungan_pelapor like ? ', ['%'.request()->input("search.value"). '%'])
+                ->orWhereRaw('keperluan like ? ', ['%'.request()->input("search.value"). '%'])
+                ->orWhereRaw('keterangan like ? ', ['%'.request()->input("search.value"). '%'])
+                ->orWhereRaw('status like ? ', ['%'.request()->input("search.value"). '%'])
+                ;
+            });
+        }
+
+        $recordsFiltered = $data->get()->count();
+        if(request()->input("length") == -1):
+            $data = $data->take(request()->input('length'))->get();
+        else:
+            $data = $data->skip(request()->input('start'))->take(request()->input('length'))->orderBy($orderBy,request()->input("order.0.dir"))->get();
+        endif;
+        $recordsTotal = $data->count();
+
+        return response()->json([
+            'draw' => request()->input('draw'),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $data
+        ]);
+    }
+
     public function jsonRiwayat()
     {
         $role = auth()->user()->role;
@@ -208,6 +250,7 @@ class PengajuanController extends Controller
     {
         $pengajuan = Pengajuan::find($id);
         $pengajuan->status = $request->status;
+        $pengajuan->keterangan = $request->keterangan;
         $berkas_dinas = $request->file('berkas_dinas');
         if ($berkas_dinas !== null) {
             $file_name = $berkas_dinas->getClientOriginalName();

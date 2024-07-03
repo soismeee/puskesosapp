@@ -116,8 +116,14 @@
                                             <select name="status" class="form-select status">
                                                 <option value="Pengajuan" {{ $pengajuan->status == "Pengajuan" ? "selected" : "" }}>Pengajuan</option>
                                                 <option value="Proses" {{ $pengajuan->status == "Proses" ? "selected" : "" }}>Proses</option>
+                                                <option value="Tolak" {{ $pengajuan->status == "Tolak" ? "selected" : "" }}>Tolak</option>
                                                 <option value="Selesai" {{ $pengajuan->status == "Selesai" ? "selected" : "" }}>Selesai</option>
                                             </select>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-12" id="keterangan" style="display: none">
+                                            <label>Keterangan penolakan</label>
+                                            <input type="text" class="form-control" name="keterangan" id="keterangan">
                                         </div>
                                         <div class="col-lg-6 col-md-12" id="upload_berkas" style="display: none">
                                             <label>Upload dokument</label>
@@ -151,6 +157,9 @@
             let status = $(this).val();
             if (status == "Selesai") { $('#upload_berkas').show(); }
             if (status !== "Selesai") { $('#upload_berkas').hide(); }
+
+            if (status == "Tolak") { $('#keterangan').show(); }
+            if (status !== "Tolak") { $('#keterangan').hide(); }
         });
 
         $(document).on('click', '.lihat_berkas', function(e){

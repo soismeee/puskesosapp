@@ -75,7 +75,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->role = $request->role;
-        $user->status = $request->status;
+        $user->status = $request->status == null ? 'non-aktif' : $request->status;
         $user->update();
         return response()->json(['message' => 'Data pengguna berhasil ditambahkan']);
     }

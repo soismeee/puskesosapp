@@ -1,4 +1,8 @@
 @extends('layout.main')
+@push('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap4.css">
+@endpush
 @section('container')
 <div class="page-content">
     <div class="container-fluid">
@@ -21,7 +25,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" id="data_pengajuan">
-                            <table class="table mb-0">
+                            <table class="table mb-0" id="datapengajuan">
                                 <thead class="table-light">
                                     <tr>
                                         <th>No</th>
@@ -52,72 +56,92 @@
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
     <script>
-        $(document).ready(function(e){
-            loaddata();
-        });
-
-        function loading(){
-            $("#data_pengajuan table tbody").html(`
-                <tr>
-                    <td colspan="7" class="text-center" id="loading">
-                        <div class="spinner-border text-secondary m-1" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </td>
-                </tr>
-            `);
-        }
-
-        function loaddata() {
-            $('#data_pengajuan table tbody').html("");
-            loading();
-            $.ajax({
-                url: "{{ url('json_pengajuan') }}",
-                type: "GET",
-                data: { 'status' : $('.status').val() },
-                dataType: "JSON",
-                success: function(response) {
-                    $('#loading').hide();
-                    var no = 1;
-                    let html = '';
-                    let data = response.data;
-                    data.forEach(items => {
-                        let tanggal = moment(items.tanggal).format("DD-MM-YYYY");
-                        let status = "dark";
-                        if (items.status == "Proses") { status = "primary"; }
-                        if (items.status == "Selesai") { status = "success"; }
-                        html = `
-                        <tr>
-                            <td>`+no+`</td>
-                            <td>`+items.pengajuan_id+`</td>
-                            <td>`+items.penduduk.nama+`</td>
-                            <td>`+items.jenis_layanan.nama_layanan+`</td>
-                            <td>`+tanggal+`</td>
-                            <td><span class="badge bg-`+status+`">`+items.status+`</span></td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="/get-pengajuan/`+items.pengajuan_id+`" class="btn btn-sm btn-primary lihat">Lihat</a>
-                                    <a href="#" class="btn btn-sm btn-danger hapus" data-id="`+items.penduduk_nik+`">Hapus</a>
-                                </div>    
-                            </td>
-                        </tr>
-                        `;
-                        no++;
-                        $('#data_pengajuan table tbody').append(html);
-                    });
-                },
-                error: function(err){
-                    $('#loading').hide();
-                    $('#data_pengajuan table tbody').html(`<tr><td colspan="7" class="text-center">`+err.responseJSON.message+`</td></tr>`);
+        const table = $('#datapengajuan').DataTable({          
+            "lengthMenu": [[5, 10, 25, 50, 100, -1],[5, 10, 25, 50, 100, 'All']],
+            "pageLength": 10, 
+            processing: true,
+            serverSide: true,
+            responseive: true,
+            ajax: {
+                url:"{{ url('json_pj') }}",
+                type:"POST",
+                data:function(d){
+                    d._token = "{{ csrf_token() }}"
                 }
-            });
-        }
+            },
+            columns:[
+                {
+                    "targets": "_all",
+                    "defaultContent": "-",
+                    "render": function(data, type, row, meta){
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                {
+                    "targets": "_all",
+                    "defaultContent": "-",
+                    "render": function(data, type, row, meta){
+                    return row.pengajuan_id
+                    }
+                },
+                {
+                    "targets": "_all",
+                    "defaultContent": "-",
+                    "render": function(data, type, row, meta){
+                    return row.penduduk.nama
+                    }
+                },
+                {
+                    "targets": "_all",
+                    "defaultContent": "-",
+                    "render": function(data, type, row, meta){
+                    return row.jenis_layanan.nama_layanan
+                    }
+                },
+                {
+                    "targets": "_all",
+                    "defaultContent": "-",
+                    "render": function(data, type, row, meta){
+                        var tanggal = row.tanggal
+                        var hari = tanggal.substring(8,10)
+                        var bulan = tanggal.substring(7,5)
+                        var tahun = tanggal.substring(0,4)
+                        return hari+'/'+bulan+"/"+tahun
+                    }
+                },
+                {
+                    "targets": "_all",
+                    "defaultContent": "-",
+                    "render": function(data, type, row, meta){
+                        var status = "dark";
+                        if (row.status == "Proses") { status = "primary"; }
+                        if (row.status == "Selesai") { status = "success"; }
+                        return `<span class="badge bg-`+status+`">`+row.status+`</span>`;
+                    }
+                },
+                {
+                    "targets": "_all",
+                    "defaultContent": "-",
+                    "render": function(data, type, row, meta){
+                        return `
+                        <div class="btn-group">
+                            <a href="/get-pengajuan/`+row.pengajuan_id+`" class="btn btn-sm btn-primary lihat">Lihat</a>
+                            <a href="#" class="btn btn-sm btn-danger hapus" data-id="`+row.penduduk_nik+`">Hapus</a>
+                        </div> 
+                        `
+                    }
+                },
+            ]
+        });
 
         $(document).on('change', '.status', function(e){
             e.preventDefault();
-            loading();
-            loaddata();
+            table.ajax.reload();
         });
 
         $(document).on('click', '.hapus', function(e){
@@ -142,7 +166,7 @@
                         dataType: 'json',
                         success: function(response){
                             Swal.fire("Deleted!","Data ini telah dihapus.","success")
-                            loaddata();
+                            table.ajax.reload();
                         },
                         error: function(err){
                             sweetAlert("Maaf!!!", err.responseJSON.message, "error");
