@@ -62,6 +62,7 @@ class AuthController extends Controller
         $vaslidatedData['id'] = intval((microtime(true) * 10000));
         $vaslidatedData['password'] = Hash::make($vaslidatedData['password']);
         $vaslidatedData['role'] = 2;
+        $vaslidatedData['status'] = 'non-aktif';
         User::create($vaslidatedData);
         return redirect('/login')->with('success', 'Berhasil registrasi, silahkan login');
     }
