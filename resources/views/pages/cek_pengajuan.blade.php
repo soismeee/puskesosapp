@@ -37,7 +37,11 @@
                                         <td colspan="3">
                                             <h5 id="id">Register</h5>
                                             <span class="tanggal">tanggal</span>
-                                            <span class="status">Status</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            Status Pengajuan : <span class="status"></span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -137,6 +141,9 @@
                     }
                     if (data.status == "Selesai") {
                         status = "<span class='badge bg-success'>Selesai</span>"
+                    }
+                    if (data.status == "Tolak") {
+                        status = "<span class='badge bg-danger'>Tolak</span> <br /> keterangan : "+ data.keterangan
                     }
 
                     $('#id').html(data.pengajuan_id);
