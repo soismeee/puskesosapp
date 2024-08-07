@@ -18,6 +18,7 @@ class CreateJenisLayanansTable extends Migration
             $table->string('nama_layanan');
             $table->string('slug');
             $table->text('syarat');
+            $table->text('keterangan')->nullable();
             $table->string('status')->default('show');
             $table->timestamps();
         });

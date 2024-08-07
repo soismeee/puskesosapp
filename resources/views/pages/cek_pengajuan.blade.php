@@ -145,6 +145,9 @@
                     if (data.status == "Tolak") {
                         status = "<span class='badge bg-danger'>Tolak</span> <br /> keterangan : "+ data.keterangan
                     }
+                    if (data.status == "Revisi") {
+                        status = "<span class='badge bg-danger'>Tolak</span> <br /> keterangan : "+ data.keterangan
+                    }
 
                     $('#id').html(data.pengajuan_id);
                     $('.status').html(status);

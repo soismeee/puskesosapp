@@ -28,6 +28,7 @@
                                         <th>Layanan</th>
                                         <th>Tanggal Pengajuan</th>
                                         <th>Status</th>
+                                        <th>#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,7 +40,7 @@
             </div>
         </div>
          <!-- end row -->
-
+        
     </div>
     <!-- container-fluid -->
 </div>
@@ -80,7 +81,10 @@
                     data.forEach(items => {
                         let tanggal = moment(items.tanggal).format("DD-MM-YYYY");
                         let status = "dark";
+                        let ket = " ";
+                        let aksi = " ";
                         if (items.status == "Proses") { status = "primary"; }
+                        if (items.status == "Revisi") { status = "warning"; ket = "Keterangan: " + items.keterangan; aksi = `<a href="/editpengajuan/`+items.pengajuan_id+`" class="btn btn-sm btn-dark">Edit pengajuan</a>`}
                         if (items.status == "Selesai") { status = "success"; }
                         html = `
                         <tr>
@@ -89,7 +93,8 @@
                             <td>`+items.penduduk.nama+`</td>
                             <td>`+items.jenis_layanan.nama_layanan+`</td>
                             <td>`+tanggal+`</td>
-                            <td><span class="badge bg-`+status+`">`+items.status+`</span></td>
+                            <td><span class="badge bg-`+status+`">`+items.status+`</span> <br /> `+ket+`</td>
+                            <td>`+aksi+`</td>
                         </tr>
                         `;
                         no++;

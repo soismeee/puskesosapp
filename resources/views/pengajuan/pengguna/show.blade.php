@@ -10,12 +10,13 @@
                             <h4>Nomor Pengajuan : {{ $pengajuan->pengajuan_id }}</h4>
 
                             <p> Layanan : {{ $pengajuan->jenis_layanan->nama_layanan }} <br />
-                                Status : {{ $pengajuan->status }}
+                                Status : <strong>{{ $pengajuan->status }}</strong> <br />
+                                Keterangan : {{ $pengajuan->keterangan }}
                             </p>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-8 col-md-12">
+                            <div class="col-lg-12 col-md-12">
                                 <h5>Data Pengajuan</h5>
                                 <table class="table table-bordered">
                                     <tr>
@@ -80,13 +81,14 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="col-lg-4 col-md-12">
+                            <div class="col-lg-12 col-md-12">
                                 <h5>Berkas persyaratan</h5>
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th width="70%">Syarat</th>    
-                                            <th width="30%">Berkas</th>    
+                                            <th width="50%">Syarat</th>    
+                                            <th width="20%">Berkas</th>    
+                                            <th width="30%">Upload ulang</th>    
                                         </tr>    
                                     </thead>
                                     <tbody>
@@ -100,42 +102,17 @@
                                                         <button class="btn btn-sm btn-primary lihat_berkas" data-nik="{{ $pengajuan->penduduk_nik }}" data-berkas="{{ $item['berkas'] }}">Lihat berkas</button>
                                                     @endif
                                                 </td>
+                                                <td><input type="file" name="{{ $item['layanan'] }}" class="form-control" placeholder="upload ulang berkas"></td>
                                             </tr>
                                         @endforeach
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                            <td><button class="btn btn-primary">Update berkas</button></td>
+                                        </tr>
                                     </tbody>
                                 </table>    
                             </div>
                             <hr />
-                            <div class="col-lg-12 col-md-12">
-                                <form id="form_status" enctype="multipart/form-data">
-                                    @csrf
-                                    <h4>Proses pengajuan</h4>
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-12">
-                                            <label for="status">Proses pengajuan</label>
-                                            <select name="status" class="form-select status">
-                                                <option value="Pengajuan" {{ $pengajuan->status == "Pengajuan" ? "selected" : "" }}>Pengajuan</option>
-                                                <option value="Proses" {{ $pengajuan->status == "Proses" ? "selected" : "" }}>Proses</option>
-                                                <option value="Revisi" {{ $pengajuan->status == "Revisi" ? "selected" : "" }}>Revisi</option>
-                                                <option value="Tolak" {{ $pengajuan->status == "Tolak" ? "selected" : "" }}>Tolak</option>
-                                                <option value="Selesai" {{ $pengajuan->status == "Selesai" ? "selected" : "" }}>Selesai</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-lg-6 col-md-12" id="keterangan" style="display: none">
-                                            <label>Keterangan</label>
-                                            <input type="text" class="form-control" name="keterangan" id="keterangan">
-                                        </div>
-                                        <div class="col-lg-6 col-md-12" id="upload_berkas" style="display: none">
-                                            <label>Upload dokument</label>
-                                            <input type="file" class="form-control" name="berkas_dinas" id="berkas_dinas">
-                                        </div>
-                                        <div class="col-lg-12 col-md-12 mt-3">
-                                            <button type="submit" class="btn btn-primary" id="simpan">Simpan pengajuan</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
                         </div>
                     </div>
                 </div>

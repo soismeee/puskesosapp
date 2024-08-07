@@ -119,7 +119,9 @@
                     "defaultContent": "-",
                     "render": function(data, type, row, meta){
                         var status = "dark";
+                        var ket = " ";
                         if (row.status == "Proses") { status = "primary"; }
+                        if (row.status == "Revisi") { status = "warning"; ket = row.keterangan }
                         if (row.status == "Selesai") { status = "success"; }
                         return `<span class="badge bg-`+status+`">`+row.status+`</span>`;
                     }

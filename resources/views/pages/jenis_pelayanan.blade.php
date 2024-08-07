@@ -36,8 +36,10 @@
                     <h6>Informasi persyaratan layanan</h6>
                 </div>
                 <div class="card-body">
-                    <div class="row" id="informasi">
+                    <div class="row mb-3">
+                        <div id="keterangan" class="col-lg-12"></div>
                     </div>
+                    <div class="row" id="informasi"></div>
                 </div>
             </div>
         </div>
@@ -59,18 +61,19 @@
                 url: "{{ url('get_l') }}/"+id,
                 type: "GET",
                 success: function(response) {
+                    $('#keterangan').html(response.data.keterangan);
                     var output = '';
                     let no = 1;
                     let data = JSON.parse(response.data.syarat);
                     $.each(data, function(key, value) {
                         output += `<div class="col-lg-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5>`+no+`. `+value+`</h5>
-                                            </div>
-                                        </div>
-                                    </div>`;
-                                    no++;
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>`+no+`. `+value+`</h5>
+                                </div>
+                            </div>
+                        </div>`;
+                        no++;
                     });
                     $('#informasi').html(output);
                 },

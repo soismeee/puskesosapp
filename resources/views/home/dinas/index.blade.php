@@ -32,6 +32,7 @@
                                     <th>Layanan</th>
                                     <th>Tanggal Pengajuan</th>
                                     <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,6 +44,7 @@
                                         <td>{{ $item->jenis_layanan->nama_layanan }}</td>
                                         <td>{{ date('d-m-Y', strtotime($item->tanggal)) }}</td>
                                         <td><span class="badge bg-dark">{{ $item->status }}</span></td>
+                                        <td><a href="/get-pengajuan/{{ $item->pengajuan_id }}" class="btn btn-sm btn-primary">Lihat</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

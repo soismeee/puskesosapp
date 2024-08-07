@@ -261,6 +261,26 @@ class PengajuanController extends Controller
         return response()->json(['message' => 'Status pengajuan berhasil diubah']);
     }
 
+    public function editPengajuan($id){
+        $pengajuan = Pengajuan::with(['jenis_layanan', 'penduduk', 'berkas_pengajuan'])->find($id);
+        // return "ed";
+        $jenis_layanan = JenisLayanan::find($pengajuan->jl_id);
+        foreach (json_decode($jenis_layanan->syarat) as $key => $value) {
+            $berkas = BerkasPengajuan::where('syarat_pengajuan', $key)->where('pengajuan_id', $pengajuan->pengajuan_id)->first();
+            $data[] = [
+                'layanan' => $value,
+                'berkas' => $berkas == null ? "Belum di upload" : $berkas->berkas
+            ];
+        }
+
+        // return $data;
+        return view('pengajuan.pengguna.show', [
+            'title' => 'Data pengajuan',
+            'pengajuan' => $pengajuan,
+            'berkas' => $data
+        ]);
+    }
+
     public function destroy($id)
     {
         $pengajuan = Penduduk::find($id); // select penduduk

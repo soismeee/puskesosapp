@@ -49,7 +49,8 @@ class DatabaseSeeder extends Seeder
             'nama_layanan' => 'BPJS/KIS',
             'slug' => 'BPJSKIS',
             'syarat' => json_encode($syaratbpjskis),
-            'status' => 'show'
+            'status' => 'show',
+            'keterangan' => 'Kartu Indonesia Sehat (KIS) adalah program jaminan kesehatan yang dikelola oleh Badan Penyelenggara Jaminan Sosial (BPJS) Kesehatan. KIS merupakan kartu identitas peserta Jaminan Kesehatan Nasional (JKN) yang dapat digunakan untuk mendapatkan layanan kesehatan secara gratis.'
         ]);
 
         $syaratbop = [
@@ -67,7 +68,9 @@ class DatabaseSeeder extends Seeder
             'nama_layanan' => 'Bantuan Operasional Perawatan',
             'slug' => 'BOP',
             'syarat' => json_encode($syaratbop),
-            'status' => 'show'
+            'status' => 'show',
+            'keterangan' => 'Bantuan Operasional Rawat Inap diberikan kepada Keluarga Miskin yang anggota keluarganya harus dirawat di Rumah Sakit. Bantuan Operasional bertujuan meringankan beban keluarga pasien yang selama masa rawat inap tidak bisa menjalankan aktifitas pekerjaan seperti biasanya.'
+
         ]);
 
         $syaratkip = [
@@ -82,7 +85,8 @@ class DatabaseSeeder extends Seeder
             'nama_layanan' => 'KIP',
             'slug' => 'KIP',
             'syarat' => json_encode($syaratkip),
-            'status' => 'show'
+            'status' => 'show',
+            'keterangan' => 'KIP (Kartu Indonesia Pintar) adalah tanda identitas yang diberikan kepada peserta didik sebagai syarat untuk mengakses Program Indonesia Pintar (PIP). KIP juga dapat merujuk kepada Kartu Indonesia Pintar Kuliah, yang merupakan salah satu program bantuan pendidikan yang diberikan pemerintah kepada mahasiswa yang berasal dari keluarga kurang mampu.',
         ]);
 
         $syaratyatimpiatu = [
@@ -96,7 +100,8 @@ class DatabaseSeeder extends Seeder
             'nama_layanan' => 'Yatim Piatu',
             'slug' => 'YP',
             'syarat' => json_encode($syaratyatimpiatu),
-            'status' => 'show'
+            'status' => 'show',
+            'keterangan' => 'Bantuan yatim piatu adalah program pemerintah yang bertujuan untuk membantu anak-anak yang kehilangan orang tua dalam meringankan beban hidup mereka. Bantuan dapat berupa uang, makanan, pakaian, atau barang-barang lain yang dibutuhkan. Bantuan juga dapat berupa layanan terapi fisik, psikososial, dan mental spiritual untuk membantu anak-anak mengatasi perasaan sedih dan membangkitkan semangat mereka untuk melanjutkan hidup.'
         ]);
 
         // kecamatan limpung

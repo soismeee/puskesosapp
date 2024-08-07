@@ -79,7 +79,7 @@ route::post('/json_pj', [PengajuanController::class, 'jsonDatatable'])->name('js
 route::post('/save_pengajuan', [PengajuanController::class, 'store'])->name('save_pengajuan')->middleware('auth');
 route::post('/save_status/{id}', [PengajuanController::class, 'statusUpdate'])->name('save_status')->middleware('auth');
 route::delete('/hapus_pengajuan/{id}', [PengajuanController::class, 'destroy'])->name('hapus_pengajuan')->middleware('auth');
-
+route::get('/editpengajuan/{id}', [PengajuanController::class, 'editPengajuan'])->name('editpengajuan')->middleware('auth');
 // laporan
 route::get('/laporan', [HomeController::class, 'laporan'])->name('laporan')->middleware('auth');
 route::get('/cari_pengajuan', [HomeController::class, 'getLaporan'])->name('cari_pengajuan')->middleware('auth');

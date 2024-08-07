@@ -13,6 +13,7 @@
                     <p>Lengkapi data dibawah ini</p>
                     <hr />
                     <h5><strong>1. Data Personal</strong></h5>
+                    <p>Data personal pengajuan mencakup informasi pribadi dari individu yang mengajukan permohonan</p>
                     <form id="form_pengajuan" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" class="form-control" name="jl_id" id="jl_id" value="{{ $layanan->jl_id }}">
@@ -89,6 +90,7 @@
                         <hr />
 
                         <h5><strong>2. Data Pelapor</strong></h5>
+                        <p>Data pelapor pengajuan mencakup informasi mengenai individu atau pihak yang melaporkan atau mengajukan permohonan atas nama orang lain.</p>
                         <div class="row mb-3">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
@@ -107,7 +109,7 @@
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
                                     <label for="no_telepon" class="form-label">No HP</label>
-                                    <input type="text" class="form-control" placeholder="Masukan nomor telepon" name="no_telepon" id="no_telepon" onkeypress="return telepon('event')">
+                                    <input type="text" class="form-control" placeholder="Masukan nomor telepon" name="no_telepon" id="no_telepon" maxlength="13" onkeypress="return telepon('event')">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
@@ -120,11 +122,11 @@
                         <hr />       
 
                         <h5><strong>3. Berkas Persyaratan</strong></h5>
-                        <p><strong>Catatan : </strong>pastikan semua persyaratan sudah dipersiapkan, data yang akan diupload berupa gambar</p>
+                        <p>Data berkas persyaratan mencakup dokumen-dokumen yang diperlukan untuk memproses pengajuan. <br /> <strong>Catatan : </strong>pastikan semua persyaratan sudah dipersiapkan, data yang akan diupload berupa gambar</p>
                         <div class="row">
                             @foreach (json_decode($layanan->syarat) as $sy=>$index)
                                 <div class="col-lg-4 mb-3">
-                                    <label>{{ $sy }}</label>
+                                    <label>{{ $index }}</label>
                                     <input type="hidden" class="form-control" name="syarat_pengajuan[]" id="syarat_pengajuan" value="{{ $sy }}">
                                     <input type="file" class="form-control" name="berkas[]" id="berkas" accept="image/*,application/pdf" required>
                                 </div>
@@ -166,7 +168,9 @@
 
         var nik = document.getElementById("nik");
         nik.addEventListener("keyup", function(e) {
-            $('#nik').addClass("is-valid");
+            if (this.value.length > 15) {
+                $('#nik').addClass("is-valid");
+            }
             $('#nik').removeClass("is-invalid");
         });
 
@@ -181,10 +185,12 @@
             $('#dk_id').addClass("is-valid");
             $('#dk_id').removeClass("is-invalid");
         });
-
+        
         var no_kk = document.getElementById("no_kk");
         no_kk.addEventListener("keyup", function(e) {
-            $('#no_kk').addClass("is-valid");
+            if (this.value.length > 15) {
+                $('#no_kk').addClass("is-valid");
+            }
             $('#no_kk').removeClass("is-invalid");
         });
 
