@@ -269,6 +269,7 @@ class PengajuanController extends Controller
             $berkas = BerkasPengajuan::where('syarat_pengajuan', $key)->where('pengajuan_id', $pengajuan->pengajuan_id)->first();
             $data[] = [
                 'layanan' => $value,
+                'syarat_pengajuan' => $key,
                 'berkas' => $berkas == null ? "Belum di upload" : $berkas->berkas
             ];
         }
@@ -279,6 +280,30 @@ class PengajuanController extends Controller
             'pengajuan' => $pengajuan,
             'berkas' => $data
         ]);
+    }
+
+    public function update(Request $request, $id){
+        $berkas = $request->file('berkas');
+        if($berkas == null){
+        return redirect('/pengajuan');
+        }
+        $pengajuan = Pengajuan::find($id);
+        $pengajuan->keterangan = "Berkas sudah di perbaiki";
+        $pengajuan->update();
+
+        foreach($berkas as $key => $value){
+            if ($key !== null) {
+                $bb = BerkasPengajuan::where('pengajuan_id', $id)->where('syarat_pengajuan', $request->syarat_pengajuan[$key])->first();
+
+                $file_name = $request->penduduk_nik . "_" . $request->syarat_pengajuan[$key] . date('dmY') ."." . $value->getClientOriginalExtension();
+                $value->storeAs('public/berkas_upload/' . $request->penduduk_nik, $file_name);
+
+                $bb->berkas = $file_name;
+                $bb->update();
+            }
+        }
+
+        return redirect('/pengajuan');
     }
 
     public function destroy($id)

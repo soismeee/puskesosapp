@@ -123,7 +123,7 @@
                         if (row.status == "Proses") { status = "primary"; }
                         if (row.status == "Revisi") { status = "warning"; ket = row.keterangan }
                         if (row.status == "Selesai") { status = "success"; }
-                        return `<span class="badge bg-`+status+`">`+row.status+`</span>`;
+                        return `<span class="badge bg-`+status+`">`+row.status+`</span>` + ' ' + ket;
                     }
                 },
                 {

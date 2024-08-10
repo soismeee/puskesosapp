@@ -92,6 +92,8 @@
                                         </tr>    
                                     </thead>
                                     <tbody>
+                                        <form action="/updateberkas/{{ $pengajuan->pengajuan_id }}" method="post" enctype="multipart/form-data">
+                                        @csrf    
                                         @foreach ($berkas as $item)
                                             <tr>
                                                 <td>{{ $item['layanan'] }}</td>
@@ -102,13 +104,18 @@
                                                         <button class="btn btn-sm btn-primary lihat_berkas" data-nik="{{ $pengajuan->penduduk_nik }}" data-berkas="{{ $item['berkas'] }}">Lihat berkas</button>
                                                     @endif
                                                 </td>
-                                                <td><input type="file" name="{{ $item['layanan'] }}" class="form-control" placeholder="upload ulang berkas"></td>
+                                                <td>
+                                                    <input type="hidden" class="form-control" name="syarat_pengajuan[]" id="syarat_pengajuan" value="{{ $item['syarat_pengajuan'] }}">
+                                                    <input type="file" class="form-control" name="berkas[]" id="berkas" accept="image/*,application/pdf">
+                                                </td>
                                             </tr>
-                                        @endforeach
+                                            @endforeach
+                                            <input type="hidden" class="form-control" name="penduduk_nik" id="penduduk_nik" value="{{ $pengajuan->penduduk_nik }}">
                                         <tr>
-                                            <td colspan="2">&nbsp;</td>
+                                            <td colspan="2">Catatan : update berkas yang salah saja</td>
                                             <td><button class="btn btn-primary">Update berkas</button></td>
                                         </tr>
+                                        </form>
                                     </tbody>
                                 </table>    
                             </div>

@@ -10,7 +10,10 @@
                             <h4>Nomor Pengajuan : {{ $pengajuan->pengajuan_id }}</h4>
 
                             <p> Layanan : {{ $pengajuan->jenis_layanan->nama_layanan }} <br />
-                                Status : {{ $pengajuan->status }}
+                                Status : {{ $pengajuan->status }} <br />
+                                @if ($pengajuan->status == "Revisi")
+                                    Keterangan : <strong>{{ $pengajuan->keterangan }}</strong>
+                                @endif
                             </p>
                     </div>
                     <div class="card-body">
