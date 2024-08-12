@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penduduk;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,20 +26,37 @@ class AuthController extends Controller
     public function authenticate(Request $request)
     {
         // dd($request);
-        $credentials = $request->validate(
-        [
-            'email' => 'required',
-            'password' => 'required'
-        ],
-        [
-            'email.required' => 'Email tidak boleh kosong',
-            'password.required' => 'Password tidak boleh kosong',
-        ]);
+        // $credentials = $request->validate(
+        // [
+        //     'email' => 'required',
+        //     'password' => 'required'
+        // ],
+        // [
+        //     'email.required' => 'Email tidak boleh kosong',
+        //     'password.required' => 'Password tidak boleh kosong',
+        // ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        // if (Auth::attempt($credentials)) {
+        //     $request->session()->regenerate();
+        //     return redirect()->intended('/home');
+        // }
+        $credentials = $request->only('email', 'password');
+
+        // Coba login dengan email
+        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             return redirect()->intended('/home');
         }
+
+        // Jika email gagal, coba cari user berdasarkan nomor telepon
+        $penduduk = Penduduk::where('no_telepon', $credentials['email'])->first();
+
+        if ($penduduk) {
+            $user = User::find($penduduk->user_id);
+            if ($user && Auth::attempt(['email' => $user->email, 'password' => $credentials['password']])) {
+                return redirect()->intended('/home');
+            }
+        }
+
         return back()->with('loginError', 'Email atau password salah!!!');
     }
 

@@ -52,7 +52,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="email">Email</label>
                                             <div class="position-relative input-custom-icon">
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="Masukan email" value="{{ old('email') }}">
+                                                <input type="text" class="form-control" name="email" id="email" placeholder="Masukan email atau nomor telepon" value="{{ old('email') }}">
                                                  <span class="bx bx-user"></span>
                                             </div>
                                             @error('email')
