@@ -50,7 +50,7 @@
                                         </div>
                                         @endif
                                         <div class="mb-3">
-                                            <label class="form-label" for="email">Email</label>
+                                            <label class="form-label" for="email">Email atau telepon</label>
                                             <div class="position-relative input-custom-icon">
                                                 <input type="text" class="form-control" name="email" id="email" placeholder="Masukan email atau nomor telepon" value="{{ old('email') }}">
                                                  <span class="bx bx-user"></span>

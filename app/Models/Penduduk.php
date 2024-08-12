@@ -29,7 +29,7 @@ class Penduduk extends Model
         return $this->belongsTo(Pengajuan::class, 'nik');
     }
 
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    // public function user(){
+    //     return $this->belongsTo(User::class, 'user_id');
+    // }
 }

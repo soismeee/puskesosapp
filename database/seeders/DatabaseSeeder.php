@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin Aplikasi',
             'email' => 'admin@mail.com',
             'password' => bcrypt('admin'),
+            'telepon' => '000',
             'role' => '1',
             'status' => 'aktif',
         ]);
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@mail.com',
             'password' => bcrypt('123'),
+            'telepon' => '123456789',
             'role' => '2',
             'status' => 'aktif',
         ]);

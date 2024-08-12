@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'telepon',
         'role',
         'status'
     ];
@@ -44,7 +45,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function penduduk(){
-        return $this->hasOne(Penduduk::class);
-    }
+    // public function penduduk(){
+    //     return $this->hasOne(Penduduk::class);
+    // }
 }

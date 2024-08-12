@@ -67,6 +67,19 @@
                                             </span>
                                             @enderror
                                         </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label" for="telepon">Telepon</label>
+                                            <div class="position-relative input-custom-icon">
+                                                <input type="text" class="form-control" id="telepon" name="telepon" placeholder="Masukan nomor telepon" value="{{ old('telepon') }}">
+                                                 <span class="bx bx-phone"></span>
+                                            </div>
+                                            @error('telepon')
+                                            <span class="text-danger">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
+                                        </div>
                 
                                         <div class="mb-3">
                                             <label class="form-label" for="userpassword">Password</label>

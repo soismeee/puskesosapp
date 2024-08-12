@@ -26,35 +26,32 @@ class AuthController extends Controller
     public function authenticate(Request $request)
     {
         // dd($request);
-        // $credentials = $request->validate(
-        // [
-        //     'email' => 'required',
-        //     'password' => 'required'
-        // ],
-        // [
-        //     'email.required' => 'Email tidak boleh kosong',
-        //     'password.required' => 'Password tidak boleh kosong',
-        // ]);
+        $credentials = $request->validate(
+        [
+            'email' => 'required',
+            'password' => 'required'
+        ],
+        [
+            'email.required' => 'Email tidak boleh kosong',
+            'password.required' => 'Password tidak boleh kosong',
+        ]);
 
         // if (Auth::attempt($credentials)) {
         //     $request->session()->regenerate();
         //     return redirect()->intended('/home');
         // }
-        $credentials = $request->only('email', 'password');
 
-        // Coba login dengan email
-        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
+        $emailOrPhone = $request->input('email');
+        $password = $request->input('password');
+
+        // Coba login menggunakan email atau telepon
+        $credentials = filter_var($emailOrPhone, FILTER_VALIDATE_EMAIL) ?
+            ['email' => $emailOrPhone, 'password' => $password] :
+            ['telepon' => $emailOrPhone, 'password' => $password];
+
+        if (Auth::attempt($credentials)) {
+            // Jika berhasil, redirect ke halaman tujuan
             return redirect()->intended('/home');
-        }
-
-        // Jika email gagal, coba cari user berdasarkan nomor telepon
-        $penduduk = Penduduk::where('no_telepon', $credentials['email'])->first();
-
-        if ($penduduk) {
-            $user = User::find($penduduk->user_id);
-            if ($user && Auth::attempt(['email' => $user->email, 'password' => $credentials['password']])) {
-                return redirect()->intended('/home');
-            }
         }
 
         return back()->with('loginError', 'Email atau password salah!!!');
@@ -66,14 +63,16 @@ class AuthController extends Controller
         $vaslidatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:5|max:255'
+            'password' => 'required|min:5|max:255',
+            'telepon' => 'required|min:10|max:16'
         ],
         [
             'name.required' => 'Nama tidak boleh kosong',
             'email.required' => 'Email tidak boleh kosong',
             'email.unique' => 'Silahkan gunakan email lain',
             'password.required' => 'Password tidak boleh kosong',
-            'password.min' => 'Password minimal 5 karakter'
+            'password.min' => 'Password minimal 5 karakter',
+            'telepon.required' => 'Telepon tidak boleh kosong'
         ]
         );
 
