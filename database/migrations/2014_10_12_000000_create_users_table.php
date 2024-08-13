@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('telepon');
+            $table->string('email')->nullable();
+            $table->string('telepon')->unique();
             $table->string('password');
             $table->string('role');
             $table->string('status');

@@ -62,21 +62,20 @@ class AuthController extends Controller
         // dd($request);
         $vaslidatedData = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:5|max:255',
-            'telepon' => 'required|min:10|max:16'
+            'telepon' => 'required|unique:users',
+            'password' => 'required|min:5|max:255'
         ],
         [
             'name.required' => 'Nama tidak boleh kosong',
-            'email.required' => 'Email tidak boleh kosong',
-            'email.unique' => 'Silahkan gunakan email lain',
+            'telepon.required' => 'Telepon tidak boleh kosong',
+            'telepon.unique' => 'Silahkan gunakan email lain',
             'password.required' => 'Password tidak boleh kosong',
             'password.min' => 'Password minimal 5 karakter',
-            'telepon.required' => 'Telepon tidak boleh kosong'
         ]
         );
 
         $vaslidatedData['id'] = intval((microtime(true) * 10000));
+        $vaslidatedData['email'] = $request->email;
         $vaslidatedData['password'] = Hash::make($vaslidatedData['password']);
         $vaslidatedData['role'] = 2;
         $vaslidatedData['status'] = 'non-aktif';
